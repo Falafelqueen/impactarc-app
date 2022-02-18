@@ -1,6 +1,7 @@
+
 FactoryBot.define do
   factory :organisation do
-    name {'Example name'}
+    name {'Name example'}
     subheading {'Example subheading'}
     description {'Example blabla bla bla bla bla bla
     blablablablabla bla blabla Example blabla bla bla bla bla bla
@@ -12,19 +13,11 @@ FactoryBot.define do
     english {true}
     internship {true}
     volunteering {true}
-    address {
-      {street: 'Example street'}
-     { city: 'Example city'}
-      {zip_code: '12345'}
-      {country: 'Denmark'}
-    }
+    address {'Example street,Copenhagen,2450,Denmark'}
     email {'examplemail@example'}
     phone {'12343454'}
-    social_media {
-      {linkedin: 'examplelink'}
-     { facebook: 'examplelink'}
-      {instagram: 'examplelink'}
-    }
-
+    linkedin  {'examplelink'}
+    facebook {'examplelink'}
+    instagram {'examplelink'}
   end
 end
