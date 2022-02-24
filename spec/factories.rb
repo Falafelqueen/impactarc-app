@@ -14,7 +14,7 @@ FactoryBot.define do
     internship {true}
     volunteering {true}
     address {'Example street,Copenhagen,2450,Denmark'}
-    email {'examplemail@example'}
+    email {'examplemail@example.com'}
     phone {'12343454'}
     linkedin  {'examplelink'}
     facebook {'examplelink'}
