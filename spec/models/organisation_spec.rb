@@ -8,8 +8,10 @@ RSpec.describe Organisation, :type => :model do
     end
 
     it 'has a name' do
+      org2 = build(:organisation, name: nil)
       expect(@org.name).to eql(@org.name)
       expect(@org).to be_valid
+      expect(org2).not_to be_valid
     end
 
     it 'has a unique name' do
@@ -19,11 +21,15 @@ RSpec.describe Organisation, :type => :model do
     end
 
     it 'has a description' do
+      org2 = build(:organisation, name: "Unique name", description: nil)
       expect(@org.description).not_to be_nil
+      expect(org2).not_to be_valid
     end
 
     it 'has associated tags' do
+      org2 = build(:organisation, name: "Unique name", tags: [])
       expect(@org.tags.length).to be >= 1
+      expect(org2).not_to be_valid
     end
 
     it 'belongs to at least one existing category' do
@@ -47,5 +53,13 @@ RSpec.describe Organisation, :type => :model do
       end
       expect(valid_address).to be true
     end
+
+    it 'has a valid email address' do
+      valid_email_format = /\A[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+\z/
+      org2 = build(:organisation, name: "Unique name", email: "wrong@example")
+      expect(@org.email).to match(valid_email_format)
+      expect(org2).not_to be_valid
+    end
+
   end
 end
