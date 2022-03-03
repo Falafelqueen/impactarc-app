@@ -6,7 +6,13 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
+require "open-uri"
 
+Organisation.destroy_all
+
+puts "Deleted all organisations"
+
+puts "Creating new organisations"
 organisations = [
   {
     name: "THE WHY",
@@ -22,10 +28,31 @@ organisations = [
     volunteering: false,
     address: "Gothersgade 55,Copenhagen,1123,Denmark",
     email: "info@thewhy.dk",
-    phone: "31384191"
+    phone: "31384191",
+    logo: "app/assets/images/logos/thewhy.png"
   }
 ]
 
 organisations.each do |organisation|
-  Organisation.create(organisation)
+  organisation_in_db = Organisation.new(
+    name: organisation[:name],
+    subheading: organisation[:subheading],
+    description: organisation[:description],
+    categories: organisation[:categories],
+    tags: organisation[:tags],
+    website: organisation[:website],
+    facebook: organisation[:facebook],
+    linkedin: organisation[:linkedin],
+    internship: organisation[:internship],
+    volunteering: organisation[:volunteering],
+    address: organisation[:address],
+    email: organisation[:email],
+    phone: organisation[:phone]
+  )
+
+  logo = organisation[:logo].split('/')
+  organisation_in_db.photo.attach(io: File.open(organisation[:logo]), filename: "#{logo.last}.png", content_type: "image/png")
+  organisation_in_db.save!
 end
+
+puts "Done creating new organisations"
