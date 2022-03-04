@@ -1,1 +1,9 @@
-<h1>create organisation</h1>
+
+<
+<%= form_with model: @organisation do |f|%>
+<%= f.text_field :name %>
+<%= f.text_field :subheading %>
+<%= f.text_area :description %>
+<%= f.select :tags , ["human rights", "sustainability"] %>
+<%= f.submit "Create organisation" %>
+<% end %>

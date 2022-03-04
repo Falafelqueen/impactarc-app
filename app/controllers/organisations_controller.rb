@@ -9,16 +9,20 @@ class OrganisationsController < ApplicationController
 
   def create
     @organisation = Organisation.new(organisation_params)
-    if organisation.save!
-      redirect_to organisations_path
-    else
-      render :new
-    end
+
+    respond_to do |format|
+      if @organisation.save!
+       format.html redirect_to organisations_path
+      else
+        render :new
+      end
+      end
+
   end
 
   private
 
   def organisation_params
-    params.require(:organisation).permit(:name, :subheading, :description, :address, :email, :phone, :linkedin, :facebook, :website, :english, :internship, :volunteering, tags: [], categories: [])
+    params.require(:organisation).permit(:name, :subheading, :description, :address, :email, :phone, :linkedin, :facebook, :website, :english, :internship, :volunteering, :photo, :tags, categories: [])
   end
 end
