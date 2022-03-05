@@ -1,9 +1,13 @@
 
-<
 <%= form_with model: @organisation do |f|%>
-<%= f.text_field :name %>
-<%= f.text_field :subheading %>
-<%= f.text_area :description %>
-<%= f.select :tags , ["human rights", "sustainability"] %>
-<%= f.submit "Create organisation" %>
+  <%= f.text_field :name %>
+  <%= f.text_field :subheading %>
+  <%= f.text_area :description %>
+  <%= f.email_field :email %>
+  <%= f.file_field :photo %>
+  <%= f.fields_for :search_words do |t|%>
+   <%= t.select  :search_word, SearchWord.all.collect {|s| s.search_word}%>
+  <% end %>
+ <%# will add nested fields_for with checkboxes and add new tag thingy %>
+  <%= f.submit "Create organisation" %>
 <% end %>
