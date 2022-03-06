@@ -1,4 +1,8 @@
 <% @organisations.each do |organisation| %>
-<%= organisation.name %>
-<%= cl_image_tag organisation.photo.key, height: 300, width:400, crop: :fit %>
+  <%= organisation.name %>
+  <% unless organisation.photo.key.nil? %>
+    <%= cl_image_tag organisation.photo.key, height: 300, width:400, crop: :fit %>
+  <% end %>
 <% end %>
+
+<%= link_to "Create new organisation", new_organisation_path %>

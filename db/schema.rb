@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_03_152346) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_05_094039) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -62,6 +62,23 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_03_152346) do
     t.string "size"
   end
 
+  create_table "search_words", force: :cascade do |t|
+    t.string "search_word"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "organisation_id"
+    t.bigint "search_word_id"
+    t.index ["organisation_id"], name: "index_tags_on_organisation_id"
+    t.index ["search_word_id"], name: "index_tags_on_search_word_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "tags", "organisations"
+  add_foreign_key "tags", "search_words"
 end

@@ -8,9 +8,10 @@
 
 require "open-uri"
 
+Tag.destroy_all
 Organisation.destroy_all
-
-puts "Deleted all organisations"
+SearchWord.destroy_all
+puts "Deleted all organisations, tags, searchwords"
 
 puts "Creating new organisations"
 organisations = [
@@ -39,7 +40,6 @@ organisations.each do |organisation|
     subheading: organisation[:subheading],
     description: organisation[:description],
     categories: organisation[:categories],
-    tags: organisation[:tags],
     website: organisation[:website],
     facebook: organisation[:facebook],
     linkedin: organisation[:linkedin],
@@ -53,6 +53,10 @@ organisations.each do |organisation|
   logo = organisation[:logo].split('/')
   organisation_in_db.photo.attach(io: File.open(organisation[:logo]), filename: "#{logo.last}.png", content_type: "image/png")
   organisation_in_db.save!
+  organisation[:tags].each do |tag|
+    tag_word = SearchWord.create(search_word: tag)
+    Tag.create(search_word: tag_word, organisation: organisation_in_db)
+  end
 end
 
 puts "Done creating new organisations"

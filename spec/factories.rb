@@ -1,5 +1,13 @@
 
 FactoryBot.define do
+  factory :tag do
+    
+  end
+
+  factory :search_word do
+    search_word { "MyString" }
+  end
+
   factory :organisation do
     name {'Name example'}
     subheading {'Example subheading'}
