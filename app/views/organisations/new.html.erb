@@ -11,6 +11,12 @@
    <%= b.check_box %>
    <% end %>
   <% end %>
+  <%= f.fields_for :categories do |c|%>
+   <%= c.collection_check_boxes :name, Category.all, :name, :name do |b|%>
+   <%= b.label  %>
+   <%= b.check_box %>
+   <% end %>
+  <% end %>
  <%# will add nested fields_for with checkboxes and add new tag thingy %>
   <%= f.submit "Create organisation" %>
 <% end %>

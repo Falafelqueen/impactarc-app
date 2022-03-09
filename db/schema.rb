@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_05_094039) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_09_101622) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,13 +42,27 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_05_094039) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "categories", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
+  end
+
+  create_table "organisation_categories", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "organisation_id"
+    t.bigint "category_id"
+    t.index ["category_id"], name: "index_organisation_categories_on_category_id"
+    t.index ["organisation_id"], name: "index_organisation_categories_on_organisation_id"
+  end
+
   create_table "organisations", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
     t.text "subheading"
     t.text "description"
-    t.string "tags", array: true
     t.string "categories", array: true
     t.string "address"
     t.string "email"
@@ -79,6 +93,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_05_094039) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "organisation_categories", "categories"
+  add_foreign_key "organisation_categories", "organisations"
   add_foreign_key "tags", "organisations"
   add_foreign_key "tags", "search_words"
 end

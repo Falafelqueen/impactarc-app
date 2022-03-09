@@ -1,5 +1,13 @@
 
 FactoryBot.define do
+  factory :organisation_category do
+    
+  end
+
+  factory :category do
+    
+  end
+
   factory :tag do
     
   end
