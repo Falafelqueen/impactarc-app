@@ -69,4 +69,5 @@ end
 
 group :test do
    gem 'database_cleaner-active_record', '~> 2.0.1'
+   gem 'capybara'
 end

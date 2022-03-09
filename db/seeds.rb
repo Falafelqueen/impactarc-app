@@ -9,7 +9,9 @@
 require "open-uri"
 
 Tag.destroy_all
+OrganisationCategory.destroy_all
 Organisation.destroy_all
+Category.destroy_all
 SearchWord.destroy_all
 puts "Deleted all organisations, tags, searchwords"
 
@@ -21,6 +23,7 @@ organisations = [
     description: "The WHY Foundation is a non-profit media organization with a mission to provide the world with thought-provoking journalism and entertaining human interests stories, that inspire people to ask WHY?. The WHY produces and distributes documentaries about human rights, democracy, justice and environment that are being used in schools, community centres, public cinemas or citizens at large through television stations in almost 200 countries. With the project ASK WHY? it brings quality documentaries and discussions about human rights into the public education system in Denmark.",
     categories: ["Human Right", "Art", "Media"],
     tags: ["documentaries", "film", "media", "journalism", "human rights", "environment"],
+    categories: ["human rights", "homelessness"],
     website: "https://www.thewhy.dk/",
     facebook: "https://www.facebook.com/TheWhyFound/",
     linkedin: "https://www.linkedin.com/company/thewhyfoundation/",
@@ -39,7 +42,6 @@ organisations.each do |organisation|
     name: organisation[:name],
     subheading: organisation[:subheading],
     description: organisation[:description],
-    categories: organisation[:categories],
     website: organisation[:website],
     facebook: organisation[:facebook],
     linkedin: organisation[:linkedin],
@@ -56,6 +58,11 @@ organisations.each do |organisation|
   organisation[:tags].each do |tag|
     tag_word = SearchWord.create(search_word: tag)
     Tag.create(search_word: tag_word, organisation: organisation_in_db)
+  end
+  organisation[:categories].each do |category|
+    puts category
+    category_in_db = Category.create!(name: category)
+    OrganisationCategory.create(organisation: organisation_in_db, category: category_in_db)
   end
 end
 
