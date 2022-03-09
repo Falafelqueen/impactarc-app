@@ -5,4 +5,6 @@ class Organisation < ApplicationRecord
   has_one_attached :photo
   has_many :tags
   has_many :search_words, through: :tags
+  has_many :organisation_categories
+  has_many :categories, through: :organisation_categories
 end

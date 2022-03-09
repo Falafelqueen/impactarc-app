@@ -10,9 +10,17 @@ class OrganisationsController < ApplicationController
   def create
     @organisation = Organisation.new(organisation_params)
       if @organisation.save!
-        params[:organisation][:search_words].each do |entry|
+        params[:organisation][:search_words][:search_word].each do |entry|
+          unless entry.nil? || entry = ""
           search_word = SearchWord.find_by(search_word: entry)
           Tag.create(organisation_id: @organisation.id, search_word_id: search_word.id )
+          end
+        end
+        params[:organisation][:categories][:name].each do |entry|
+          unless entry.nil? || entry == ""
+            category = Category.find_by(name: entry)
+            OrganisationCategory.create(organisation_id: @organisation.id, category_id: category.id)
+          end
         end
         redirect_to organisations_path
       else
@@ -37,7 +45,8 @@ class OrganisationsController < ApplicationController
       :internship,
       :volunteering,
       :photo,
-      search_words: []
+      search_words: [],
+      categories: []
       )
   end
 end
