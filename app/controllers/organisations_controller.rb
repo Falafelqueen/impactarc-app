@@ -10,9 +10,11 @@ class OrganisationsController < ApplicationController
   def create
     @organisation = Organisation.new(organisation_params)
       if @organisation.save!
-        params[:organisation][:search_words].each do |entry|
+        params[:organisation][:search_words][:search_word].each do |entry|
+          if !entry.nil? && entry != ""
           search_word = SearchWord.find_by(search_word: entry)
           Tag.create(organisation_id: @organisation.id, search_word_id: search_word.id )
+          end
         end
         redirect_to organisations_path
       else

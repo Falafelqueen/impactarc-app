@@ -6,7 +6,10 @@
   <%= f.email_field :email %>
   <%= f.file_field :photo %>
   <%= f.fields_for :search_words do |t|%>
-   <%= t.select  :search_word, SearchWord.all.collect {|s| s.search_word}%>
+   <%= t.collection_check_boxes :search_word, SearchWord.all, :search_word, :search_word do |b|%>
+   <%= b.label  %>
+   <%= b.check_box %>
+   <% end %>
   <% end %>
  <%# will add nested fields_for with checkboxes and add new tag thingy %>
   <%= f.submit "Create organisation" %>
