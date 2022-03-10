@@ -1,15 +1,15 @@
 
 FactoryBot.define do
   factory :organisation_category do
-    
+
   end
 
   factory :category do
-    
+
   end
 
   factory :tag do
-    
+
   end
 
   factory :search_word do
@@ -24,8 +24,6 @@ FactoryBot.define do
     blablablablabla bla blabla Example blabla bla bla bla bla bla
     blablablablabla bla blabla Example blabla bla bla bla bla bla
     blablablablabla bla blabla'}
-    tags {['human rights', 'homeless people', 'serving food', 'homeless shelter']}
-    categories {['human rights', 'homelessness']}
     english {true}
     internship {true}
     volunteering {true}
@@ -34,6 +32,6 @@ FactoryBot.define do
     phone {'12343454'}
     linkedin  {'examplelink'}
     facebook {'examplelink'}
-    instagram {'examplelink'}
+    website {'examplelink'}
   end
 end
