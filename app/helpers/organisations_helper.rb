@@ -12,11 +12,9 @@ module OrganisationsHelper
     end
 
     def format_address
-      url = "https://parseapi.back4app.com/classes/DK_DK?limit=10&keys=place,postalCode"
+      url = "https://app.zipcodebase.com/api/v1/search?apikey=68f86710-a399-11ec-9175-99205e7cb76d&codes=10005%2C51503"
       user_serialized = URI.open(url).read
       user = JSON.parse(user_serialized)
-
-
       return "#{@street},#{@city},#{@zip_code},#{country}"
     end
 
