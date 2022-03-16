@@ -2,5 +2,3 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 import { fetchingAPI } from "./components/zip_code_autofill"
-
-fetchingAPI(2450)

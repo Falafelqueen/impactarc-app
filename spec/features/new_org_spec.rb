@@ -16,5 +16,6 @@ RSpec.feature "Organisation management" do
     check_checkbox(category.name)
     attach_file "././app/assets/images/logos/thewhy.png"
     click_button "Create organisation"
+    expect(page).to_have css()
   end
 end
