@@ -1,9 +1,30 @@
-<title>Organisation database</title>
-<% @organisations.each do |organisation| %>
-  <%= organisation.name %>
-  <% unless organisation.photo.key.nil? %>
-    <%= cl_image_tag organisation.photo.key, height: 300, width:400, crop: :fit %>
+<div class="filter-bar">
+</div>
+<div class="content-container">
+  <div class="side-bar">
+    <h1>Filter bar</h1>
+  </div>
+  <div class="org-grid">
+  <% unless @organisations.nil? %>
+    <% @organisations.each do |organisation| %>
+      <div class="org-card">
+      <div class="org-card-logo">
+        <div class="logo-frame">
+          <% if organisation.photo.nil? %>
+          <%= cl_image_tag Organisation.find_by(name: organisation.name).photo.key, class:"org-logo" %>
+          <% else %>
+            <%= cl_image_tag organisation.photo.key, height: 300, width:400, crop: :fit, class: "org-logo" %>
+          <% end %>
+        </div>
+      </div>
+      <div class="org-card-info">
+        <h3><%= organisation.name %></h3>
+         <h4><%= organisation.subheading %></h4>
+      </div>
+      </div>
+      <% end %>
   <% end %>
-<% end %>
+  </div>
+</div>
 
 <%= link_to "Create new organisation", new_organisation_path %>
