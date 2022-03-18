@@ -1,17 +1,19 @@
+<div class="navbar-container">
 <div class="nav-left">
-<%= link_to "ImpactArc", root_path, class:"nav-link-text nav-logo" %>
-<p>Projects</p>
-<%= link_to "Organisations", organisations_path, class: "nav-link-text" %>
+  <%= link_to "ImpactArc", root_path, class:"nav-link-text nav-logo" %>
+  <%= link_to "Project", root_path, class:"nav-link-text" %>
+  <%= link_to "Organisations", organisations_path, class: "nav-link-text" %>
 </div>
 <div class="nav-right">
-  <div class="search-bar">
+
   <%= form_with url: organisations_path, method: :get do %>
-    <%= text_field_tag :query, params[:query] %>
+    <%= text_field_tag :query, params[:query], class: "search-bar" %>
     <%= submit_tag "Search", style: "display: none" %>
   <% end %>
-  </div>
+
   <div class="search-icon">
   <%= image_tag "icons/search_icon.svg" %>
   </div>
 <button class="log-in main-btn">Log in</button>
+</div>
 </div>

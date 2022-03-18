@@ -2,3 +2,6 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 import { fetchingAPI } from "./components/zip_code_autofill"
+import { animateSearch } from "./components/animate_searchbar"
+
+animateSearch()
