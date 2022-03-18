@@ -1,6 +1,16 @@
 class OrganisationsController < ApplicationController
   def index
-    @organisations = Organisation.all
+    if params[:query].nil?
+      @organisations = Organisation.all
+    else
+      response = Organisation.search(params[:query])
+      unless response.results.first.nil?
+        @organisations = response.results.map do |r|
+            r._source
+        end
+
+       end
+    end
   end
 
   def new
@@ -10,6 +20,7 @@ class OrganisationsController < ApplicationController
   def create
     @organisation = Organisation.new(organisation_params)
       if @organisation.save!
+
         params[:organisation][:search_words][:search_word].each do |entry|
           unless entry.nil? || entry = ""
           search_word = SearchWord.find_by(search_word: entry)

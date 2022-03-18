@@ -7,4 +7,6 @@ class Organisation < ApplicationRecord
   has_many :search_words, through: :tags
   has_many :organisation_categories
   has_many :categories, through: :organisation_categories
+
+  include Searchable
 end
