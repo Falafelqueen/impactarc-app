@@ -6,8 +6,8 @@
   --font:'Roboto', sans-serif;
   --main-title: 72px;
   --phone-main-title:52px;
-  --normal-text: 24px;
-  --small-text:16px;
+  --title-text: 24px;
+  --normal-text:16px;
   --phone-normal-text: 16px;
   --smaller-title: 30px;
   --phone-smaller-title:24px;
@@ -23,6 +23,7 @@ a {
   color: inherit;
 }
 
+
 body{
   background-color: var(--whitish);
   color: var(--dark-green);
@@ -33,9 +34,9 @@ h1, h2, h3, p {
   margin-bottom:0px;
 }
 h2{
-  font-size: var(--normal-text);
+  font-size: var(--title-text);
 }
 
 h3 {
-  font-size: var(--smaller-title)
+  font-size: var(--normal-text)
 }

@@ -1,7 +1,7 @@
 .navbar-container{
   display: flex;
   justify-content: space-between;
-  margin: 0px 25px;
+  margin: 0px 25px 15px;
   .nav-left,.nav-right{
     display: flex;
     align-items: center;
@@ -19,21 +19,23 @@
     transform: scale(1.1);
     color: var(--dark-green)
   }
+  .nav-right *{
+    margin: 0px 15px;
+  }
 }
 
  .search-bar{
     margin: 5px 5px 0px;
     width: 0;
-    opacity: 0;
+    background-color: var(--whitish);
     transition: width 1s ease-in;
     border: 0px;
     border-bottom: 1px solid var(--dark-green);
+    padding: 0px;
   }
 
-.search-bar.active{
-  width: 200px;
-  opacity:1;
-  background-color: var(--whitish);
+  .search-bar.active{
+    width: 200px;
 }
 
 .search-bar.active:focus{

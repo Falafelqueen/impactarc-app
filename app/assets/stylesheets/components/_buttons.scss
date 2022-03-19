@@ -1,0 +1,13 @@
+.normal-btn{
+  background: var(--purple);
+  color: var(--whitish);
+  padding: 10px 20px;
+  border-radius: 15px;
+  box-shadow: 0px 0px 5px var(--purple) ;
+  border: none;
+  font-size: var(--normal-text);
+  &:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+  }
+}
