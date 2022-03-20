@@ -8,7 +8,11 @@
   <%= f.text_area :description %>
   <%= f.label :email %>
   <%= f.email_field :email %>
+  <%= f.label :size, "Organisation size" %>
+  <%= f.select :size, ["small","medium","large"] %>
   <%= f.file_field :photo %>
+  <%= f.label :volunteering, "Volunteering opportunities" %>
+  <%= f.check_box :volunteering %>
   <%= f.fields_for :search_words do |t|%>
    <%= t.collection_check_boxes :search_word, SearchWord.all, :search_word, :search_word do |b|%>
    <%= b.label %>

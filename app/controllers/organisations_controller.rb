@@ -1,16 +1,34 @@
+
+
 class OrganisationsController < ApplicationController
+
   def index
     if params[:query].nil?
-      @organisations = Organisation.all
+      if params[:size].nil? && params[:volunteering].nil? && params[:category][:category].nil?
+        @organisations = Organisation.all
+      elsif params[:size].present? && params[:volunteering].nil? && params[:category][:category].nil?
+        @organisations = Organisation.filter_by_size(params[:size])
+      elsif params[:volunteering].present? && params[:size].nil? && params[:category][:category].nil?
+        if params[:volunteering]
+          @organisations = Organisation.with_volunteering_opportunities
+        end
+      elsif params[:category][:category].present? &&  params[:size].nil? && params[:volunteering].nil?
+        @organisations = Organisation.filter_by_category(params[:category][:category])
+      elsif params[:category][:category].present? && params[:size].present? && params[:volunteering].nil?
+        @organisations = Organisation.filter_by_size(params[:size]).filter_by_category(params[:category])
+      elsif params[:category][:category].present? && params[:size].nil? && params[:volunteering].present?
+           @organisations = Organisation.with_volunteering_opportunities.filter_by_category(params[:category][:category])
+       else
+          @organisations = Organisation.with_volunteering_opportunities.filter_by_size(params[:size]).filter_by_category(params[:category][:category])
+     end
+
     else
       response = Organisation.search(params[:query])
       unless response.results.first.nil?
-        @organisations = response.results.map do |r|
-            r._source
-        end
-
+        @organisations = response.records.to_a
        end
     end
+    @categories = Category.all
   end
 
   def new
@@ -55,9 +73,15 @@ class OrganisationsController < ApplicationController
       :english,
       :internship,
       :volunteering,
+      :size,
       :photo,
       search_words: [],
       categories: []
-      )
+    )
+  end
+  def category_params
+    params.require(:category).permit(
+      category: [],
+    )
   end
 end

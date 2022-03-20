@@ -1,30 +1,60 @@
-<div class="filter-bar">
-</div>
-<div class="content-container">
-  <div class="side-bar">
-    <h1>Filter bar</h1>
+<div class="container">
+  <div class="filter-bar">
+    <div class="filter-left">
+      <%= image_tag "icons/filter_icon.svg" %>
+    </div>
+    <div class="filter-right">
+      <%= image_tag "icons/sort_icon.svg" %>
+    </div>
   </div>
-  <div class="org-grid">
-  <% unless @organisations.nil? %>
-    <% @organisations.each do |organisation| %>
-      <div class="org-card">
-      <div class="org-card-logo">
-        <div class="logo-frame">
-          <% if organisation.photo.nil? %>
-          <%= cl_image_tag Organisation.find_by(name: organisation.name).photo.key, class:"org-logo" %>
-          <% else %>
-            <%= cl_image_tag organisation.photo.key, height: 300, width:400, crop: :fit, class: "org-logo" %>
+  <div class="content-container">
+    <div class="side-bar">
+      <h1>Filter bar</h1>
+      <%= form_with url: organisations_path, method: :get do  %>
+      <%= submit_tag "Apply filters" %>
+      <div class="form-group categories-main">
+      <%= fields_for :category do |c| %>
+       <% @categories.each do |category| %>
+        <%= c.check_box :category, {:multiple => true }, category.name %>
+        <%= c.label category.name, category.name.upcase %>
           <% end %>
-        </div>
+        <% end %>
       </div>
-      <div class="org-card-info">
-        <h3><%= organisation.name %></h3>
-         <h4><%= organisation.subheading %></h4>
+      <div class="form-group organisation-size">
+        <h4>Organisation size</h4>
+        <%= radio_button_tag :size, "small" %>
+        <%= label_tag :size_small, "Small" %>
+        <%= radio_button_tag :size, "medium" %>
+        <%= label_tag :size_medium, "Medium" %>
+        <%= radio_button_tag :size, "large" %>
+        <%= label_tag :size_large, "Large" %>
       </div>
+      <div class="form-group volunteering">
+        <%= check_box_tag :volunteering, "true" %>
+        <%= label_tag :volunteering, "Volunteer opportunities" %>
       </div>
       <% end %>
-  <% end %>
+    </div>
+    <div class="org-grid">
+    <% unless @organisations.nil? || @organisations == [] %>
+      <% @organisations.each do |organisation| %>
+          <% unless organisation.nil? %>
+        <div class="org-card">
+        <div class="org-card-logo">
+          <div class="logo-frame">
+              <%= cl_image_tag organisation.photo.key, height: 300, width:400, crop: :fit, class: "org-logo" %>
+          </div>
+        </div>
+        <div class="org-card-info">
+          <h3><%= organisation.name %></h3>
+          <h4><%= organisation.subheading %></h4>
+        </div>
+        </div>
+          <% end %>
+        <% end %>
+    <% end %>
+    </div>
   </div>
-</div>
 
-<%= link_to "Create new organisation", new_organisation_path %>
+  <%= link_to "Create new organisation", new_organisation_path %>
+</div>

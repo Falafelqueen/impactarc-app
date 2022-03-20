@@ -2,6 +2,8 @@
   display: flex;
   justify-content: space-between;
   margin: 0px 25px 15px;
+  padding: 15px 0px;
+
   .nav-left,.nav-right{
     display: flex;
     align-items: center;
@@ -10,17 +12,18 @@
     }
   }
   .nav-left *{
-    margin: 0px 15px;
+    margin-left: 20px;
   }
   .nav-logo{
     font-weight: bold;
+    margin-left: 0px;
   }
   .nav-link-text.nav-logo:hover{
     transform: scale(1.1);
     color: var(--dark-green)
   }
   .nav-right *{
-    margin: 0px 15px;
+    margin-left:20px;
   }
 }
 
