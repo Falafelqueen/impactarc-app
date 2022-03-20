@@ -9,4 +9,23 @@ class Organisation < ApplicationRecord
   has_many :categories, through: :organisation_categories
 
   include Searchable
+
+  scope :english_speaking, -> { where(english: true) }
+  scope :with_volunteering_opportunities, -> { where(volunteering: true) }
+  scope :with_internship_opportunities, -> { where(internship: true) }
+  scope :small, -> { where(size: "small") }
+  scope :medium, -> { where(size: "medium") }
+  scope :large, -> { where(size: "large") }
+
+  def self.filter_by_category(category)
+    self.all.map do |org|
+      if org.categories.filter{|c| c.name == category} != []
+        org
+       end
+     end
+  end
+  def self.filter_by_size(size)
+     self.where(size: size)
+  end
+
 end
