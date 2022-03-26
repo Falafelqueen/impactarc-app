@@ -4,22 +4,22 @@ class OrganisationsController < ApplicationController
 
   def index
     if params[:query].nil?
-      if params[:size].nil? && params[:volunteering].nil? && params[:category][:category].nil?
+      if params[:size].nil? && params[:volunteering].nil? && params[:category].nil?
         @organisations = Organisation.all
-      elsif params[:size].present? && params[:volunteering].nil? && params[:category][:category].nil?
+      elsif params[:size].present? && params[:volunteering].nil? && params[:category].nil?
         @organisations = Organisation.filter_by_size(params[:size])
-      elsif params[:volunteering].present? && params[:size].nil? && params[:category][:category].nil?
+      elsif params[:volunteering].present? && params[:size].nil? && params[:category].nil?
         if params[:volunteering]
           @organisations = Organisation.with_volunteering_opportunities
         end
-      elsif params[:category][:category].present? &&  params[:size].nil? && params[:volunteering].nil?
-        @organisations = Organisation.filter_by_category(params[:category][:category])
-      elsif params[:category][:category].present? && params[:size].present? && params[:volunteering].nil?
+      elsif params[:category].present? &&  params[:size].nil? && params[:volunteering].nil?
+        @organisations = Organisation.filter_by_category(params[:category])
+      elsif params[:category].present? && params[:size].present? && params[:volunteering].nil?
         @organisations = Organisation.filter_by_size(params[:size]).filter_by_category(params[:category])
-      elsif params[:category][:category].present? && params[:size].nil? && params[:volunteering].present?
-           @organisations = Organisation.with_volunteering_opportunities.filter_by_category(params[:category][:category])
+      elsif params[:category].present? && params[:size].nil? && params[:volunteering].present?
+           @organisations = Organisation.with_volunteering_opportunities.filter_by_category(params[:category])
        else
-          @organisations = Organisation.with_volunteering_opportunities.filter_by_size(params[:size]).filter_by_category(params[:category][:category])
+          @organisations = Organisation.with_volunteering_opportunities.filter_by_size(params[:size]).filter_by_category(params[:category])
      end
 
     else
@@ -75,13 +75,10 @@ class OrganisationsController < ApplicationController
       :volunteering,
       :size,
       :photo,
+      :category,
       search_words: [],
       categories: []
     )
   end
-  def category_params
-    params.require(:category).permit(
-      category: [],
-    )
-  end
+
 end
