@@ -7,6 +7,7 @@ class Organisation < ApplicationRecord
   has_many :search_words, through: :tags
   has_many :organisation_categories
   has_many :categories, through: :organisation_categories
+  accepts_nested_attributes_for :categories
 
   include Searchable
 
@@ -16,14 +17,13 @@ class Organisation < ApplicationRecord
   scope :small, -> { where(size: "small") }
   scope :medium, -> { where(size: "medium") }
   scope :large, -> { where(size: "large") }
+  scope :in_human_rights_category, -> { where(categories.inlude("human rights"))}
 
-  def self.filter_by_category(category)
-    self.all.map do |org|
-      if org.categories.filter{|c| c.name == category} != []
-        org
-       end
-     end
+
+  def self.filter_by_category(categor)
+      Organisation.joins(:categories).where(category: {name:categor})
   end
+
   def self.filter_by_size(size)
      self.where(size: size)
   end
