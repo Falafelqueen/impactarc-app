@@ -19,7 +19,7 @@
    <%= b.check_box  %>
    <% end %>
   <% end %>
-  <%= f.fields_for :categories do |c|%>
+  <%= fields_for :categories do |c|%>
    <%= c.collection_check_boxes :name, Category.all, :name, :name do |b|%>
    <%= b.label  %>
    <%= b.check_box %>

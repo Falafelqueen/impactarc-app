@@ -20,8 +20,19 @@ class Organisation < ApplicationRecord
   scope :in_human_rights_category, -> { where(categories.inlude("human rights"))}
 
 
-  def self.filter_by_category(categor)
-      Organisation.joins(:categories).where(category: {name:categor})
+  def self.filter_by_category(params_categories)
+
+    big_array = params_categories.map do |cat|
+      Organisation.joins(categories: [:organisation_categories]).where(organisation_categories:{category_id: cat}).uniq
+    end
+
+    flat_big_array = big_array.flatten
+    id_array = flat_big_array.map do |e|
+      e.id
+    end
+
+    match_array = id_array.find_all{|e| id_array.count(e) > 1}.uniq
+    return Organisation.find_by(id: match_array)
   end
 
   def self.filter_by_size(size)
