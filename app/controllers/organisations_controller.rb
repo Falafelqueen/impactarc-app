@@ -3,6 +3,7 @@
 class OrganisationsController < ApplicationController
 
   def index
+
     if params[:query].nil?
       if params[:size].nil? && params[:volunteering].nil? && params[:category_id].nil?
         @organisations = Organisation.all
@@ -13,7 +14,7 @@ class OrganisationsController < ApplicationController
           @organisations = Organisation.with_volunteering_opportunities
         end
       elsif params[:category_id].present? &&  params[:size].nil? && params[:volunteering].nil?
-        @organisations = filter_by_category(params[:category_id])
+        @organisations = Organisation.filter_by_category(params[:category_id])
       elsif params[:category_id].present? && params[:size].present? && params[:volunteering].nil?
         @organisations = Organisation.filter_by_size(params[:size]).filter_by_category(params[:category_id])
       elsif params[:category_id].present? && params[:size].nil? && params[:volunteering].present?
@@ -25,10 +26,10 @@ class OrganisationsController < ApplicationController
       response = Organisation.search(params[:query])
       unless response.results.first.nil?
         @organisations = response.records.to_a
-       end
+      end
     end
+    filter_bar(params)
     @categories = Category.all
-
   end
 
   def new
@@ -59,18 +60,21 @@ class OrganisationsController < ApplicationController
 
   private
 
-  def filter_by_category(params)
-    big_array = params.map do |cat|
-      Organisation.joins(categories: [:organisation_categories]).where(organisation_categories:{category_id: cat}).uniq
-    end
+  def filter_bar(params)
+      @filters = []
 
-    flat_big_array = big_array.flatten
-    id_array = flat_big_array.map do |e|
-      e.id
-    end
-
-    match_array = id_array.find_all{|e| id_array.count(e) > 1}.uniq
-    return Organisation.find_by(id: match_array)
+      if params[:size].present?
+        @filters << params[:size]
+      end
+      if params[:volunteering].present?
+        @filters << "volunteering opportunities"
+      end
+      if params[:category_id].present?
+        params[:category_id].each do |category_id|
+          @filters << Category.find(category_id).name
+        end
+      end
+      return @filters
   end
 
   def organisation_params

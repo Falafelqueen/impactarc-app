@@ -1,12 +1,12 @@
-const filterOrganisations =()=>{
-  const applyResetBtn = document.querySelector(".side-bar input[type='submit']")
-  const filterForm = document.querySelector(".side-bar form")
-  filterForm.addEventListener("submit", (e)=>{
-    e.preventDefault();
-    filterForm.submit();
-    applyResetBtn.value = "Remove filters"
-  })
-
+function filterOrganisations (){
+  const filterForm = document.getElementById("filter-form")
+  const filterButton = document.getElementById("filter-btn")
+  // it checkes wheter there are any filters applied
+ filterButton.addEventListener("click",()=>{
+   filterButton.value = "Remove filters"
+   console.log("filtering stuff")
+ })
+  // when clicked it reloads the page with no filters
 }
 
 export { filterOrganisations}
