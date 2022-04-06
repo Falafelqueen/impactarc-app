@@ -2,6 +2,9 @@
   display: flex;
   justify-content: space-between;
   margin: 25px 0px;
+  .filter-left{
+    display: flex;
+  }
   .filter-left img{
     width:40px;
     margin: 0px 13px;
@@ -9,5 +12,11 @@
   .filter-right img{
     width: 30px;
     margin: 10px 15px 0px;
+  }
+  .filter-selected{
+    border: 2px solid var(--purple);
+    padding: 10px 15px;
+    border-radius: 15px;
+    margin-right: 10px;
   }
 }

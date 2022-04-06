@@ -2,6 +2,11 @@
   <div class="filter-bar">
     <div class="filter-left">
       <%= image_tag "icons/filter_icon.svg" %>
+      <% @filters.each do |filter| %>
+      <div class="filter-selected">
+       <%= filter.upcase %>
+      </div>
+      <% end %>
     </div>
     <div class="filter-right">
       <%= image_tag "icons/sort_icon.svg" %>
@@ -9,13 +14,16 @@
   </div>
   <div class="content-container">
     <div class="side-bar">
+      <% if params[:commit].present? %>
+        <%= link_to "Show all", organisations_path %>
+      <% end %>
       <h1>Filter bar</h1>
-      <%= form_with url: organisations_path, method: :get do  %>
-      <%= submit_tag "Apply filters" %>
+      <%= form_with url: organisations_path, method: :get, id:"filter-form" do  %>
+      <%= submit_tag "Apply filters", id:"filter-btn" %>
       <div class="form-group categories-main">
       <%= fields_for @category do |c| %>
        <% @categories.each do |category| %>
-        <%= c.check_box :category, {:multiple => true }, category.name, false %>
+        <%= c.check_box :category_id, {:multiple => true }, category.id, false %>
         <%= c.label category.name, category.name.upcase %>
           <% end %>
         <% end %>

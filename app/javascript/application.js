@@ -5,5 +5,8 @@ import { fetchingAPI } from "./components/zip_code_autofill"
 import { animateSearch } from "./components/animate_searchbar"
 import { filterOrganisations } from "./components/filters";
 
-animateSearch()
-filterOrganisations()
+document.addEventListener("turbo:load", ()=>{
+  console.log("page loaded")
+  animateSearch()
+
+})
