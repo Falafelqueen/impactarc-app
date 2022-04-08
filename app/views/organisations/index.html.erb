@@ -9,7 +9,7 @@
       <% end %>
     </div>
     <div class="filter-right">
-      <%= image_tag "icons/sort_icon.svg" %>
+      <%= image_tag "icons/sort_icon.svg", id:"sort-icon" %>
     </div>
   </div>
   <div class="content-container">
@@ -28,24 +28,34 @@
           <% end %>
         <% end %>
       </div>
-      <div class="form-group organisation-size">
-        <h4>Organisation size</h4>
-        <%= radio_button_tag :size, "small" %>
-        <%= label_tag :size_small, "Small" %>
-        <%= radio_button_tag :size, "medium" %>
-        <%= label_tag :size_medium, "Medium" %>
-        <%= radio_button_tag :size, "large" %>
-        <%= label_tag :size_large, "Large" %>
+      <div data-controller="visibility" class="expand-btn">
+        <div data-action="click->visibility#showTargets" data-visibility-target="showBtn"><%= image_tag "icons/plus_icon.svg" %>Expand selection</div>
+        <div data-action="click->visibility#hideTargets" data-visibility-target="hideBtn"><%= image_tag "icons/minus_icon.svg" %>Minimize selection</div>
+        <div class="expand-box" data-visibility-target="hideable" hidden>
+          <div class="form-group organisation-size">
+            <h4>Organisation size</h4>
+            <%= radio_button_tag :size, "small" %>
+            <%= label_tag :size_small, "Small" %>
+            <%= radio_button_tag :size, "medium" %>
+            <%= label_tag :size_medium, "Medium" %>
+            <%= radio_button_tag :size, "large" %>
+            <%= label_tag :size_large, "Large" %>
+          </div>
+          <div class="form-group volunteering">
+            <%= check_box_tag :volunteering, "true" %>
+            <%= label_tag :volunteering, "Volunteer opportunities" %>
+          </div>
+        </div>
       </div>
-      <div class="form-group volunteering">
-        <%= check_box_tag :volunteering, "true" %>
-        <%= label_tag :volunteering, "Volunteer opportunities" %>
+      <div class="form-group english">
+        <%= check_box_tag :english, "true" %>
+        <%= label_tag :english, "English" %>
       </div>
       <% end %>
     </div>
     <div class="org-grid">
     <% unless @organisations.nil? || @organisations == [] %>
-      <% @organisations.each do |organisation| %>
+      <% @organisations.sort_by{|org| org.name}.each do |organisation| %>
           <% unless organisation.nil? %>
         <div class="org-card">
         <div class="org-card-logo">
@@ -53,7 +63,7 @@
               <%= cl_image_tag organisation.photo.key, height: 300, width:400, crop: :fit, class: "org-logo" %>
           </div>
         </div>
-        <div class="org-card-info">
+        <div class="org-card-info" data-name="<%= organisation.name %>">
           <h3><%= organisation.name %></h3>
           <h4><%= organisation.subheading %></h4>
         </div>

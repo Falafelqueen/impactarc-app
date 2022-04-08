@@ -3,8 +3,9 @@
 class OrganisationsController < ApplicationController
 
   def index
-
+    # no search
     if params[:query].nil?
+
       if params[:size].nil? && params[:volunteering].nil? && params[:category_id].nil?
         @organisations = Organisation.all
       elsif params[:size].present? && params[:volunteering].nil? && params[:category_id].nil?
@@ -19,15 +20,21 @@ class OrganisationsController < ApplicationController
         @organisations = Organisation.filter_by_size(params[:size]).filter_by_category(params[:category_id])
       elsif params[:category_id].present? && params[:size].nil? && params[:volunteering].present?
            @organisations = Organisation.with_volunteering_opportunities.filter_by_category(params[:category_id])
+      elsif  params[:category_id].nil? && params[:size].present? && params[:volunteering].present?
+            @organisations = Organisation.with_volunteering_opportunities.filter_by_size(params[:size])
        else
           @organisations = Organisation.with_volunteering_opportunities.filter_by_size(params[:size]).filter_by_category(params[:category_id])
      end
+
     else
+      #when the index is accessed through search bar
       response = Organisation.search(params[:query])
       unless response.results.first.nil?
         @organisations = response.records.to_a
       end
+
     end
+
     filter_bar(params)
     @categories = Category.all
   end
@@ -67,7 +74,7 @@ class OrganisationsController < ApplicationController
         @filters << params[:size]
       end
       if params[:volunteering].present?
-        @filters << "volunteering opportunities"
+        @filters << "volunteer opportunities"
       end
       if params[:category_id].present?
         params[:category_id].each do |category_id|
