@@ -19,19 +19,27 @@
       <% end %>
       <h1>Filter bar</h1>
       <%= form_with url: organisations_path, method: :get, id:"filter-form" do  %>
-      <%= submit_tag "Apply filters", id:"filter-btn" %>
+      <%= submit_tag "Apply filters", class:"filter-btn" %>
       <div class="form-group categories-main">
-      <%= fields_for @category do |c| %>
-       <% @categories.each do |category| %>
-        <%= c.check_box :category_id, {:multiple => true }, category.id, false %>
-        <%= c.label category.name, category.name.upcase %>
+        <%= fields_for @category do |c| %>
+          <% @main_categories.each do |category| %>
+            <%= c.check_box :category_id, {:multiple => true }, category.id, false %>
+            <%= c.label category.name, category.name.upcase %>
           <% end %>
         <% end %>
       </div>
       <div data-controller="visibility" class="expand-btn">
         <div data-action="click->visibility#showTargets" data-visibility-target="showBtn"><%= image_tag "icons/plus_icon.svg" %>Expand selection</div>
-        <div data-action="click->visibility#hideTargets" data-visibility-target="hideBtn"><%= image_tag "icons/minus_icon.svg" %>Minimize selection</div>
+        <div data-action="click->visibility#hideTargets" data-visibility-target="hideBtn" hidden><%= image_tag "icons/minus_icon.svg" %>Minimize selection</div>
         <div class="expand-box" data-visibility-target="hideable" hidden>
+          <div class="form-group other-categories">
+              <%= fields_for @category do |c|%>
+                <% @other_categories.each do |category| %>
+                   <%= c.check_box :category_id, {:multiple => true }, category.id, false %>
+                  <%= c.label category.name, category.name.upcase %>
+                <% end %>
+              <% end %>
+          </div>
           <div class="form-group organisation-size">
             <h4>Organisation size</h4>
             <%= radio_button_tag :size, "small" %>
@@ -59,9 +67,11 @@
           <% unless organisation.nil? %>
         <div class="org-card">
         <div class="org-card-logo">
-          <div class="logo-frame">
-              <%= cl_image_tag organisation.photo.key, height: 300, width:400, crop: :fit, class: "org-logo" %>
-          </div>
+          <% unless organisation.photo.key.nil? %>
+            <div class="logo-frame">
+                <%= cl_image_tag organisation.photo.key, height: 300, width:400, crop: :fit, class: "org-logo" %>
+            </div>
+          <% end %>
         </div>
         <div class="org-card-info" data-name="<%= organisation.name %>">
           <h3><%= organisation.name %></h3>

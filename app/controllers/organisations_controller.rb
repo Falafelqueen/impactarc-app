@@ -37,6 +37,8 @@ class OrganisationsController < ApplicationController
 
     filter_bar(params)
     @categories = Category.all
+    @main_categories = Category.main
+    @other_categories = Category.other
   end
 
   def new

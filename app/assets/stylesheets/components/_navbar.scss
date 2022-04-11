@@ -27,10 +27,13 @@
   }
 }
 
+.search{
+  display:flex;
+  align-items: flex-end;
+}
  .search-bar{
     margin: 5px 5px 0px;
     width: 0;
-    background-color: var(--whitish);
     transition: width 1s ease-in;
     border: 0px;
     border-bottom: 1px solid var(--dark-green);
@@ -47,7 +50,5 @@
 }
 .search-icon{
     cursor: pointer;
-    img{
       height: 35px;
-    }
   }
