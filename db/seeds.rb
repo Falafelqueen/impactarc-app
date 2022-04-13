@@ -36,7 +36,8 @@ organisations = [
     country: "Denmark",
     email: "info@thewhy.dk",
     phone: "31384191",
-    logo: "app/assets/images/logos/thewhy.png"
+    logo: "app/assets/images/logos/thewhy.png",
+    unsolicited: true
   }
 ]
 
@@ -55,7 +56,8 @@ organisations.each do |organisation|
     zip: organisation[:zip],
     city: organisation[:city],
     email: organisation[:email],
-    phone: organisation[:phone]
+    phone: organisation[:phone],
+    unsolicited: organisation[:unsolicited]
   )
 
   logo = organisation[:logo].split('/')
@@ -103,8 +105,9 @@ puts "Done seeding categories"
 
 csv_text = File.read(Rails.root.join('lib','seeds','ngos_110422.csv'))
 csv = CSV.parse(csv_text, headers: true, encoding: 'UTF-8')
+
 csv.each do |row|
-  if row['Org. description'] != nil && row['Active'] == 'yes'
+  if row['Org. description'] != nil && row['Active'].downcase == 'yes'
     org = Organisation.new
     org.name = row['OrgName']
     org.subheading = row['Subheading']
@@ -113,10 +116,18 @@ csv.each do |row|
     org.phone = row['Number']
     org.website = row['Web']
     org.linkedin = row['LinkedIn']
+    org.facebook = row['FB']
     org.street = row['Address']
     org.city = row['City']
     org.country = row['Country']
     org.zip = row['ZIP']
+    org.size = row['Size'].downcase
+    if row['Unsolicited'].downcase == 'yes'
+      org.unsolicited = true
+    end
+    if row['Volunteer oportunity'].downcase == 'yes'
+      org.volunteering = true
+    end
     #joins category rows into one array
     #iterate over the org_cat array creates Organisation category instances
     #tags

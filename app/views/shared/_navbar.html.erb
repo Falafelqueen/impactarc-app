@@ -8,6 +8,7 @@
     <div data-controller="searchbar" class="search">
       <%= form_with url: organisations_path, method: :get do %>
         <%= text_field_tag :query, params[:query], class: "search-bar", data: {searchbar_target: "searchBar"} %>
+        <%= hidden_field_tag "applied_filter", :true %>
         <%= submit_tag "Search", style: "display: none" %>
       <% end %>
       <%= image_tag "icons/search_icon.svg", data: {action:"click->searchbar#animateSearchBar"}, class:"search-icon" %>

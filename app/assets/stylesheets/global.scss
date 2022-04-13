@@ -8,6 +8,7 @@
   --phone-main-title:52px;
   --title-text: 24px;
   --normal-text:16px;
+  --small-text: 14px;
   --phone-normal-text: 16px;
   --smaller-title: 30px;
   --phone-smaller-title:24px;
@@ -22,6 +23,9 @@ a {
   text-decoration: none;
   color: inherit;
 }
+a:hover{
+  color: var(--purple)
+}
 
 
 body{
@@ -29,9 +33,15 @@ body{
   font-family: var(--font);
 }
 
-h1, h2, h3, p {
+h1, h2, h3,h4, h5, p {
   margin-bottom:0px;
+  margin-top:8px;
 }
+p{
+  font-size: var(--small-text);
+  line-height: 1.5;
+}
+
 h2{
   font-size: var(--title-text);
 }
@@ -39,8 +49,12 @@ h2{
 h3 {
   font-size: var(--normal-text)
 }
-
+h4{
+  font-weight: var(--regular)
+}
+h5{
+  font-size:var(--small-text);
+}
 .container{
-
   margin: 0px 25px;
 }
