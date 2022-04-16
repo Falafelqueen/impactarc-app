@@ -78,6 +78,14 @@
             h4{
               margin: 8px 0px;
             }
+           .logo{
+            height:200px;
+            width: 200px;
+            .logo-show {
+
+              object-fit: fill;
+            }
+           }
           }
           .characteristics-item{
             display:flex;
@@ -91,6 +99,16 @@
         .preview-foot{
           display: flex;
           align-items: center;
+          .contact{
+
+           h3, h5{
+             margin-top: 16px;
+             margin-bottom:5px;
+           }
+           p{
+            margin-top: 0px;
+          }
+          }
           .some-links{
             margin: 10px auto;
             img{
@@ -101,4 +119,13 @@
       }
     }
   }
+}
+
+.current{
+  font-weight: bold;
+  color: var(--purple)
+}
+
+.previous_page.disabled, .next_page.disabled{
+  opacity:(0.7)
 }

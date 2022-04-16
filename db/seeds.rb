@@ -52,6 +52,7 @@ organisations.each do |organisation|
     internship: organisation[:internship],
     volunteering: organisation[:volunteering],
     street: organisation[:street],
+    english: organisation[:english],
     country: organisation[:country],
     zip: organisation[:zip],
     city: organisation[:city],
@@ -112,20 +113,20 @@ csv.each do |row|
     org.name = row['OrgName']
     org.subheading = row['Subheading']
     org.description = row['Org. description']
-    org.email = row['Email General']
+    org.email = row['Email General'].downcase unless row['Email General'].nil?
     org.phone = row['Number']
-    org.website = row['Web']
+    org.website = row['Web'] unless row['Web'].nil?
     org.linkedin = row['LinkedIn']
     org.facebook = row['FB']
-    org.street = row['Address']
-    org.city = row['City']
-    org.country = row['Country']
+    org.street = row['Address'].capitalize unless row['Address'].nil?
+    org.city = row['City'].capitalize unless row['City'].nil?
+    org.country = row['Country'].capitalize
     org.zip = row['ZIP']
-    org.size = row['Size'].downcase
-    if row['Unsolicited'].downcase == 'yes'
+    org.size = row['Size'].downcase unless row['Size'].nil?
+    if !row['Unsolicited'].nil? && row['Unsolicited'] == "yes"
       org.unsolicited = true
     end
-    if row['Volunteer oportunity'].downcase == 'yes'
+    if row['Volunteer oportunity'] == 'yes' || row['Volunteer oportunity'] == 'Yes' || row['Volunteer oportunity'] == 'YES'
       org.volunteering = true
     end
     #joins category rows into one array

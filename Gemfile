@@ -46,7 +46,8 @@ gem "bootsnap", require: false
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
 
-
+#pagination
+gem 'will_paginate', '~> 3.3'
 # Use Sass to process CSS
 # gem "sassc-rails"
 gem 'sass-rails', '>= 6'

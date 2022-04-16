@@ -13,6 +13,8 @@
       <% end %>
       <%= image_tag "icons/search_icon.svg", data: {action:"click->searchbar#animateSearchBar"}, class:"search-icon" %>
     </div>
+    <%= link_to signup_path do %>
     <button class="log-in normal-btn">Log in</button>
+    <% end %>
   </div>
 </div>

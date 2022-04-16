@@ -21,7 +21,7 @@
     }
 }
 
-.other-categories, .organisation-size, .volunteering{
+.other-categories, .organisation-size, .volunteering, .internship{
   display: flex;
   flex-wrap: wrap;
     input{
@@ -44,6 +44,12 @@
 }
 .form-group{
   margin:15px 0px;
+ &.volunteering{
+   margin-bottom: 0px;
+ }
+ &.internship{
+   margin-top: 2px;
+ }
 }
 .filter-control{
   color: var(--purple);

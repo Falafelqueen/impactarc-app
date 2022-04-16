@@ -6,24 +6,75 @@ class OrganisationsController < ApplicationController
     # no search
     if params[:query].nil?
 
-      if params[:size].nil? && params[:volunteering].nil? && params[:category_id].nil?
-        @organisations = Organisation.all
-      elsif params[:size].present? && params[:volunteering].nil? && params[:category_id].nil?
-        @organisations = Organisation.filter_by_size(params[:size])
-      elsif params[:volunteering].present? && params[:size].nil? && params[:category_id].nil?
-        if params[:volunteering]
-          @organisations = Organisation.with_volunteering_opportunities
-        end
-      elsif params[:category_id].present? &&  params[:size].nil? && params[:volunteering].nil?
-        @organisations = Organisation.filter_by_category(params[:category_id])
-      elsif params[:category_id].present? && params[:size].present? && params[:volunteering].nil?
-        @organisations = Organisation.filter_by_size(params[:size]).filter_by_category(params[:category_id])
-      elsif params[:category_id].present? && params[:size].nil? && params[:volunteering].present?
-           @organisations = Organisation.with_volunteering_opportunities.filter_by_category(params[:category_id])
-      elsif  params[:category_id].nil? && params[:size].present? && params[:volunteering].present?
-            @organisations = Organisation.with_volunteering_opportunities.filter_by_size(params[:size])
-       else
-          @organisations = Organisation.with_volunteering_opportunities.filter_by_size(params[:size]).filter_by_category(params[:category_id])
+      if params[:size].nil? && params[:volunteering].nil? && params[:category_id].nil? && params[:english].nil? && params[:internship].nil?
+        @organisations = Organisation.page(params[:page]).order(:name)
+        #if there is one criteria
+      elsif params[:size].present? && params[:volunteering].nil? && params[:category_id].nil? && params[:english].nil? && params[:internship].nil?
+        @organisations = Organisation.filter_by_size(params[:size]).page(params[:page])
+      elsif params[:volunteering].present? && params[:size].nil? && params[:category_id].nil? && params[:english].nil? && params[:internship].nil?
+          @organisations = Organisation.with_volunteering_opportunities.page(params[:page])
+      elsif params[:category_id].present? &&  params[:size].nil? && params[:volunteering].nil? && params[:english].nil? && params[:internship].nil?
+        @organisations = Organisation.filter_by_category(params[:category_id]).page(params[:page])
+      elsif params[:english].present? && params[:size].nil? && params[:volunteering].nil? && params[:category_id].nil? && params[:internship].nil?
+        @organisations = Organisation.english_speaking.page(params[:page])
+      elsif params[:internship].present? && params[:size].nil? && params[:volunteering].nil? && params[:category_id].nil? && params[:english].nil?
+        @organisations = Organisation.with_internship_opportunities.page(params[:page])
+        #if there is 2 filters
+      elsif params[:category_id].present? && params[:english].present? && params[:size].nil? && params[:volunteering].nil? && params[:internship].nil?
+        @organisations = Organisation.english_speaking.filter_by_category(params[:category_id]).page(params[:page])
+      elsif params[:category_id].present? && params[:size].present? && params[:volunteering].nil? && params[:english].nil? && params[:internship].nil?
+        @organisations = Organisation.filter_by_size(params[:size]).filter_by_category(params[:category_id]).page(params[:page])
+      elsif params[:category_id].present? && params[:english].nil? && params[:size].nil? && params[:volunteering].present? && params[:internship].nil?
+        @organisations = Organisation.with_volunteering_opportunities.filter_by_category(params[:category_id]).page(params[:page])
+      elsif params[:category_id].present? && params[:english].nil? && params[:size].nil? && params[:volunteering].nil? && params[:internship].present?
+        @organisations = Organisation.with_internship_opportunities.filter_by_category(params[:category_id]).page(params[:page])
+      elsif params[:category_id].nil? && params[:english].present? && params[:size].present? && params[:volunteering].nil? && params[:internship].nil?
+        @organisations = Organisation.english_speaking.filter_by_size(params[:size]).page(params[:page])
+      elsif params[:category_id].nil? && params[:english].present? && params[:size].nil? && params[:volunteering].present? && params[:internship].nil?
+        @organisations = Organisation.english_speaking.with_volunteering_opportunities.page(params[:page])
+      elsif params[:category_id].nil? && params[:english].present? && params[:size].nil? && params[:volunteering].nil? && params[:internship].present?
+        @organisations = Organisation.english_speaking.with_internship_opportunities.page(params[:page])
+      elsif params[:category_id].nil? && params[:english].nil? && params[:size].present? && params[:volunteering].present? && params[:internship].nil?
+        @organisations = Organisation.filter_by_size(params[:size]).with_volunteering_opportunities.page(params[:page])
+      elsif params[:category_id].nil? && params[:english].nil? && params[:size].present? && params[:volunteering].nil? && params[:internship].present?
+        @organisations = Organisation.filter_by_size(params[:size]).with_internship_opportunities.page(params[:page])
+      elsif params[:category_id].nil? && params[:english].nil? && params[:size].nil? && params[:volunteering].present? && params[:internship].present?
+        @organisations = Organisation.with_volunteering_opportunities.with_internship_opportunities.page(params[:page])
+        #if there is 3 filters
+      elsif params[:category_id].present? && params[:english].present? && params[:size].present? && params[:volunteering].nil? && params[:internship].nil?
+        @organisations = Organisation.english_speaking.filter_by_size(params[:size]).filter_by_category(params[:category_id]).page(params[:page])
+      elsif params[:category_id].present? && params[:english].present? && params[:size].nil? && params[:volunteering].present? && params[:internship].nil?
+        @organisations = Organisation.english_speaking.with_volunteering_opportunities.filter_by_category(params[:category_id]).page(params[:page])
+      elsif params[:category_id].present? && params[:english].present? && params[:size].nil? && params[:volunteering].nil? && params[:internship].present?
+        @organisations = Organisation.english_speaking.with_internship_opportunities.filter_by_category(params[:category_id]).page(params[:page])
+      elsif params[:category_id].present? && params[:english].nil? && params[:size].present? && params[:volunteering].present? && params[:internship].nil?
+        @organisations = Organisation.with_volunteering_opportunities.filter_by_size(params[:size]).filter_by_category(params[:category_id]).page(params[:page])
+      elsif params[:category_id].present? && params[:english].nil? && params[:size].present? && params[:volunteering].nil? && params[:internship].present?
+        @organisations = Organisation.with_internship_opportunities.filter_by_size(params[:size]).filter_by_category(params[:category_id]).page(params[:page])
+      elsif params[:category_id].present? && params[:english].nil? && params[:size].nil? && params[:volunteering].present? && params[:internship].present?
+        @organisations = Organisation.with_internship_opportunities.with_volunteering_opportunities.filter_by_category(params[:category_id]).page(params[:page])
+      elsif params[:category_id].nil? && params[:english].present? && params[:size].present? && params[:volunteering].present? && params[:internship].nil?
+        @organisations = Organisation.english_speaking.with_volunteering_opportunities.filter_by_size(params[:size]).page(params[:page])
+      elsif params[:category_id].nil? && params[:english].present? && params[:size].present? && params[:volunteering].nil? && params[:internship].present?
+        @organisations = Organisation.english_speaking.with_internship_opportunities.filter_by_size(params[:size]).page(params[:page])
+      elsif params[:category_id].nil? && params[:english].present? && params[:size].nil? && params[:volunteering].present? && params[:internship].present?
+        @organisations = Organisation.english_speaking.with_internship_opportunities.with_volunteering_opportunities.page(params[:page])
+      elsif params[:category_id].nil? && params[:english].nil? && params[:size].present? && params[:volunteering].present? && params[:internship].present?
+        @organisations = Organisation.with_internship_opportunities.with_volunteering_opportunities.filter_by_size(params[:size]).page(params[:page])
+        #if there is 4 filters
+      elsif params[:category_id].nil? && params[:english].present? && params[:size].present? && params[:volunteering].present? && params[:internship].present?
+        @organisations = Organisation.english_speaking.with_internship_opportunities.with_volunteering_opportunities.filter_by_size(params[:size]).page(params[:page])
+      elsif params[:category_id].present? && params[:english].nil? && params[:size].present? && params[:volunteering].present? && params[:internship].present?
+        @organisations = Organisation.with_internship_opportunities.with_volunteering_opportunities.filter_by_size(params[:size]).filter_by_category(params[:category_id]).page(params[:page])
+      elsif params[:category_id].present? && params[:english].present? && params[:size].nil? && params[:volunteering].present? && params[:internship].present?
+        @organisations = Organisation.with_internship_opportunities.with_volunteering_opportunities.english_speaking.filter_by_category(params[:category_id]).page(params[:page])
+      elsif params[:category_id].present? && params[:english].present? && params[:size].present? && params[:volunteering].nil? && params[:internship].present?
+        @organisations = Organisation.with_internship_opportunities.english_speaking.filter_by_size(params[:size]).filter_by_category(params[:category_id]).page(params[:page])
+      elsif params[:category_id].present? && params[:english].present? && params[:size].present? && params[:volunteering].present? && params[:internship].nil?
+        @organisations = Organisation.with_volunteering_opportunities.english_speaking.filter_by_size(params[:size]).filter_by_category(params[:category_id]).page(params[:page])
+        #if is 5 filters
+      elsif params[:category_id].present? && params[:english].present? && params[:size].present? && params[:volunteering].present? && params[:internship].present?
+        @organisations = Organisation.english_speaking.with_volunteering_opportunities.english_speaking.filter_by_size(params[:size]).filter_by_category(params[:category_id]).page(params[:page])
      end
 
     else
@@ -82,6 +133,12 @@ class OrganisationsController < ApplicationController
         params[:category_id].each do |category_id|
           @filters << Category.find(category_id).name
         end
+      end
+      if params[:english].present?
+        @filters << "english"
+      end
+      if params[:internship].present?
+        @filters << "internship opportunities"
       end
       return @filters
   end
