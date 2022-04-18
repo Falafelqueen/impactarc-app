@@ -4,16 +4,17 @@
   <%= link_to "Project", root_path, class:"nav-link-text" %>
   <%= link_to "Organisations", organisations_path, class: "nav-link-text" %>
 </div>
-<div class="nav-right">
-
-  <%= form_with url: organisations_path, method: :get do %>
-    <%= text_field_tag :query, params[:query], class: "search-bar" %>
-    <%= submit_tag "Search", style: "display: none" %>
-  <% end %>
-
-  <div class="search-icon">
-  <%= image_tag "icons/search_icon.svg" %>
+  <div class="nav-right">
+    <div data-controller="searchbar" class="search">
+      <%= form_with url: organisations_path, method: :get do %>
+        <%= text_field_tag :query, params[:query], class: "search-bar", data: {searchbar_target: "searchBar"} %>
+        <%= hidden_field_tag "applied_filter", :true %>
+        <%= submit_tag "Search", style: "display: none" %>
+      <% end %>
+      <%= image_tag "icons/search_icon.svg", data: {action:"click->searchbar#animateSearchBar"}, class:"search-icon" %>
+    </div>
+    <%= link_to signup_path do %>
+    <button class="log-in normal-btn">Log in</button>
+    <% end %>
   </div>
-<button class="log-in normal-btn">Log in</button>
-</div>
 </div>

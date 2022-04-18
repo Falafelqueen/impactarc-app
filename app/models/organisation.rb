@@ -16,7 +16,7 @@ class Organisation < ApplicationRecord
   scope :with_internship_opportunities, -> { where(internship: true) }
 
 
- def self.filter_by_category(params)
+  def self.filter_by_category(params)
     big_array = params.map do |cat|
       Organisation.joins(categories: [:organisation_categories]).where(organisation_categories:{category_id: cat}).uniq
     end
@@ -27,9 +27,9 @@ class Organisation < ApplicationRecord
     amount_of_categories = params.count
     if amount_of_categories > 1
       match_array = id_array.find_all{|e| id_array.count(e) == amount_of_categories}.uniq
-      self.find(match_array)
+      self.where(id: match_array)
     else
-      self.find(id_array)
+      self.where(id: id_array)
     end
   end
 

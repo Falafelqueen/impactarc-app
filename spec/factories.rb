@@ -1,5 +1,12 @@
 
 FactoryBot.define do
+  factory :user do
+    name { "Example user" }
+    email { "example@mail.com" }
+    password { "example123"}
+    password_confirmation { "example123" }
+  end
+
   factory :organisation_category do
 
   end

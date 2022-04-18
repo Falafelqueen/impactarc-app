@@ -1,0 +1,76 @@
+.categories-main, .english{
+   input{
+      visibility: hidden;
+      position:absolute;
+    }
+    label{
+      font-size: var(--small-text);
+      display: inline-block;
+      padding: 8px 0px;
+      text-align: center;
+      border: 2px solid var(--dark-green);
+      border-radius: 11px;
+      cursor: pointer;
+      margin: 2px 0px;
+      width:99%;
+    }
+    input:checked + label {
+
+      color: var(--purple);
+        border: 2px solid var(--purple);
+    }
+}
+
+.other-categories, .organisation-size, .volunteering, .internship{
+  display: flex;
+  flex-wrap: wrap;
+    input{
+      visibility: hidden;
+      position:absolute;
+    }
+    label{
+      font-size: var(--small-text);
+      padding: 5px;
+      border: 1px solid var(--dark-green);
+      border-radius: 11px;
+      cursor: pointer;
+      margin: 2px;
+      margin-left:0px;
+    }
+    input:checked + label {
+        color: var(--purple);
+        border: 1px solid var(--purple);
+    }
+}
+.form-group{
+  margin:15px 0px;
+ &.volunteering{
+   margin-bottom: 0px;
+ }
+ &.internship{
+   margin-top: 2px;
+ }
+}
+.filter-control{
+  color: var(--purple);
+
+    font-size: var(--normal-text);
+
+  font-weight: var(--bold);
+  align-items: center;
+}
+.filter-btn{
+  background-color: var(--purple);
+  color: white;
+  border: none;
+  border-radius: 13px;
+  width: 100%;
+  display:flex;
+  align-items:center;
+  justify-content: center;
+  cursor: pointer;
+  * {
+    margin: 5.5px 5px;
+    font-size: var(--normal-text);
+  }
+}

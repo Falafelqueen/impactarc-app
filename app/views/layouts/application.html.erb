@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Impactarc</title>
+    <title>ImpactArc | <%= yield(:title) %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -12,8 +12,12 @@
 
   <body>
     <%= render "shared/navbar" %>
-
-     <%= yield %>
+    <div class="main-container">
+      <% flash.each do |key, value| %>
+      <div class="alert alert-<%=key  %>"><%= value %></div>
+      <% end %>
+      <%= yield %>
+    </div>
 
   </body>
   <%= debug(params) if Rails.env.development? %>
