@@ -42,6 +42,10 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
+#encrypts password
+gem 'bcrypt-ruby', '3.1.2'
+
+
 #searching
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
