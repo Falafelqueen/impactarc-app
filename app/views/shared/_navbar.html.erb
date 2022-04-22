@@ -13,8 +13,12 @@
       <% end %>
       <%= image_tag "icons/search_icon.svg", data: {action:"click->searchbar#animateSearchBar"}, class:"search-icon" %>
     </div>
-    <%= link_to signup_path do %>
+    <% if user_signed_in? %>
+      <%= button_to 'Log out', destroy_user_session_path, method: :delete, class: "log-in normal-btn" %>
+    <% else %>
+    <%= link_to new_user_session_path do %>
     <button class="log-in normal-btn">Log in</button>
+    <% end %>
     <% end %>
   </div>
 </div>

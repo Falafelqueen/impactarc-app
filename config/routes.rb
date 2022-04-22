@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
- root to: "pages#home"
- resources :users
- match '/signup', to: 'users#new', via: 'get'
- resources :organisations, only: [:index, :create, :new]
-
+  devise_for :users, controllers: {
+  omniauth_callbacks: "users/omniauth_callbacks" }
+  root to: "pages#home"
+  resources :organisations, only: [:index, :create, :new]
 end

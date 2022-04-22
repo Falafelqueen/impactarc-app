@@ -3,6 +3,7 @@
   --dark-green: #234D29;
   --light-green: #5FF780;
   --whitish: #E9F1F7;
+  --red: #FF6C6C;
   --font:'Roboto', sans-serif;
   --main-title: 72px;
   --phone-main-title:52px;
@@ -55,6 +56,35 @@ h4{
 h5{
   font-size:var(--small-text);
 }
+h6{
+  font-size: var(--normal-text);
+  font-weight: var(--regular);
+  a{
+    color: var(--purple);
+  }
+  a:hover{
+    text-decoration: underline;
+  }
+}
 .container{
   margin: 0px 25px;
+}
+
+// flash alerts
+
+.flash.alert{
+   color: var(--red);
+   width: 370px;
+   border: 1px solid var(--red);
+   border-radius: 13px;
+   margin: 10px auto;
+   padding: 25px 50px;
+  }
+  .flash.notice{
+    color: var(--purple);
+    width: 370px;
+    border: 1px solid var(--purple);
+    border-radius: 13px;
+    margin: 10px auto;
+    padding: 25px 50px;
 }
