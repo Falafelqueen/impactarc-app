@@ -1,0 +1,119 @@
+<% unless organisation.nil? %>
+                  <div data-controller="expandorg">
+                  <%# card start %>
+                  <div class="org-card">
+                  <% if current_user %>
+                  <turbo-frame id="organisation-card">
+                            <% if current_user.organisations.include?(organisation) %>
+                              <%= link_to unsave_organisation_organisation_path(organisation, user: current_user), method: :delete, remote: true do %>
+                                <%= image_tag "icons/star_full_icon.svg", alt: "star icon full", class: "save-org-btn"%>
+                              <% end %>
+                            <% else %>
+                          <%= link_to save_organisation_organisation_path(organisation, user: current_user), method: :post, remote: true do %>
+                            <%= image_tag "icons/star_line_icon.svg", alt: "star icon empty" , class: "save-org-btn"%>
+                            <% end %>
+                          <% end %>
+                  </turbo-frame>
+                          <% else %>
+                            <%= link_to new_user_session_path do %>
+                              <%= image_tag "icons/star_line_icon.svg", alt: "star icon empty" , class: "save-org-btn"%>
+                            <% end %>
+                        <% end %>
+                    <div class="org-card-logo">
+                      <% unless organisation.photo.key.nil? %>
+                        <div class="logo-frame">
+                          <%= cl_image_tag organisation.photo.key, height: 300, width:400, crop: :fit, class: "org-logo" %>
+                        </div>
+                      <% end %>
+                    </div>
+                    <div class="org-card-text">
+                      <div class="org-card-info" data-name="<%= organisation.name %>">
+
+                        <h3><%= organisation.name.upcase %></h3>
+                        <h4><%= organisation.subheading %></h4>
+                      </div>
+                      <div class="org-card-foot" data-expandorg-target="expandOrgBtn" data-action="click->expandorg#showOrganisation">
+                        <%= image_tag "icons/expand_org_icon.svg", alt: "expand organisation icon", class: "expand-org-btn" %>
+                      </div>
+                    </div>
+                  </div>
+                  <%# card-div-end %>
+                  <%# org preview  %>
+                    <div class="org-preview" data-expandorg-target="orgpreview" hidden>
+                      <div class="org-preview-card">
+                        <div class="preview-top">
+                          <div class="close-btn" data-action="click->expandorg#showIndex" data-expandorg-targets="closePreviewBtn">
+                            <%= image_tag "icons/close_icon.svg", alt: "close icon"%>
+                          </div>
+                        </div>
+                        <div class="preview-content">
+                          <div class="logo">
+                            <% unless organisation.photo.key.nil? %>
+                              <%= cl_image_tag organisation.photo.key, class: "logo-show"%>
+                            <% end %>
+                          </div>
+                          <div class="preview-head">
+                            <h3><%= organisation.name.upcase %></h3>
+                            <h4><%= organisation.subheading %></h4>
+                          </div>
+                          <div class="characteristics">
+                            <% unless organisation.size.nil? %>
+                              <div class="characteristics-item">
+                                <%= image_tag "icons/orgsize_icon.svg"%>
+                                <h5><%=organisation.size.capitalize %> organization</h5>
+                              </div>
+                            <% end %>
+                            <% unless organisation.volunteering.nil? %>
+                               <div class="characteristics-item">
+                                <%= image_tag "icons/volunteering_icon.svg"%>
+                                <h5>Volunteering opportunities</h5>
+                              </div>
+                            <% end %>
+                            <% unless organisation.internship.nil? %>
+                              <div class="characteristics-item">
+                                <%= image_tag "icons/internship_icon.svg"%>
+                                <h5>Internship programme</h5>
+                              </div>
+                            <% end %>
+                            <% unless organisation.unsolicited.nil? %>
+                              <div class="characteristics-item">
+                                <%= image_tag "icons/unsolicited_icon.svg"%>
+                                <h5>Open to unsolicited applications</h5>
+                              </div>
+                            <% end %>
+                            <% unless organisation.english.nil? %>
+                              <div class="characteristics-item">
+                                <%= image_tag "icons/english_icon.svg"%>
+                                <h5>English speaking opportunities</h5>
+                              </div>
+                            <% end %>
+                          </div>
+                          <div class="preview-body">
+                            <p><%= organisation.description %></p>
+                          </div>
+                          <div class="map">map</div>
+                          <div class="preview-foot">
+                            <div class="contact">
+                              <h3>Contact</h3>
+                              <a href="<%= organisation.website%>" target="_blank"><p><%= format_url(organisation.website)%></p></a>
+                              <p><%= organisation.email%></p>
+                              <h5>Address</h5>
+                              <p><%= organisation.street %></p>
+                              <p><%= organisation.city %></p>
+                              <p><%= organisation.zip %></p>
+                              <p><%= organisation.country %></p>
+                            </div>
+                            <div class="some-links">
+                              <%= link_to organisation.facebook, target: :_blank  do %>
+                                <%= image_tag "icons/fb_icon.svg" %>
+                              <% end %>
+                              <%= link_to organisation.linkedin, target: :_blank do %>
+                                <%= image_tag "icons/linkedin_icon.svg" %>
+                              <% end %>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+          <% end %>

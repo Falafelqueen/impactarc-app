@@ -1,0 +1,2 @@
+module UserOrganisationsHelper
+end

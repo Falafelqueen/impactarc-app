@@ -13,7 +13,7 @@ export default class extends Controller{
     console.log(window.scrollY, window.pageYOffset);
 
 
-    if(window.scrollY >= 169){
+    if(window.scrollY >= 200){
       this.orgpreviewTarget.style.top = `${window.scrollY - top}px`
     }
 

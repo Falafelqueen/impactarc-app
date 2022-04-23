@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_18_163240) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_22_102751) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -93,6 +93,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_18_163240) do
     t.bigint "search_word_id"
     t.index ["organisation_id"], name: "index_tags_on_organisation_id"
     t.index ["search_word_id"], name: "index_tags_on_search_word_id"
+  end
+
+  create_table "user_organisations", force: :cascade do |t|
+    t.string "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.bigint "organisation_id"
+    t.index ["organisation_id"], name: "index_user_organisations_on_organisation_id"
+    t.index ["user_id"], name: "index_user_organisations_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
