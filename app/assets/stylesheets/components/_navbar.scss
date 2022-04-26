@@ -7,6 +7,7 @@
   .nav-left,.nav-right{
     display: flex;
     align-items: center;
+    position:relative;
     .nav-link-text:hover{
       color: var(--purple)
     }
@@ -25,6 +26,36 @@
   .nav-right *{
     margin-left:20px;
   }
+}
+
+.user-icon{
+  cursor: pointer;
+}
+.dropdown-nav{
+  position:absolute;
+  background-color: white;
+  top: 40px;
+  right:0px;
+  display:none;
+  width:max-content;
+  line-height: 1.5;
+  a {
+    display:block;
+  }
+}
+.classic-link{
+  background:none;
+  border:none;
+  font-size: var(--normal-text);
+  color: var(--green);
+  width: 100%;
+  padding: 0px;
+}
+.classic-link:hover{
+  color: var(--purple);
+}
+.dropdown-nav.show{
+  display: block;
 }
 
 .search{

@@ -134,7 +134,6 @@ class OrganisationsController < ApplicationController
         organisation = Organisation.find(params[:id])
         user.organisations.delete(organisation)
         redirect_to organisations_path
-
       end
     end
 

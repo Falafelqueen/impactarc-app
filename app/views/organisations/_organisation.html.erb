@@ -1,48 +1,60 @@
 <% unless organisation.nil? %>
-                  <div data-controller="expandorg">
-                  <%# card start %>
-                  <div class="org-card">
-                  <% if current_user %>
-                  <turbo-frame id="organisation-card">
-                            <% if current_user.organisations.include?(organisation) %>
-                              <%= link_to unsave_organisation_organisation_path(organisation, user: current_user), method: :delete, remote: true do %>
-                                <%= image_tag "icons/star_full_icon.svg", alt: "star icon full", class: "save-org-btn"%>
-                              <% end %>
-                            <% else %>
-                          <%= link_to save_organisation_organisation_path(organisation, user: current_user), method: :post, remote: true do %>
-                            <%= image_tag "icons/star_line_icon.svg", alt: "star icon empty" , class: "save-org-btn"%>
-                            <% end %>
-                          <% end %>
-                  </turbo-frame>
-                          <% else %>
-                            <%= link_to new_user_session_path do %>
-                              <%= image_tag "icons/star_line_icon.svg", alt: "star icon empty" , class: "save-org-btn"%>
-                            <% end %>
-                        <% end %>
-                    <div class="org-card-logo">
-                      <% unless organisation.photo.key.nil? %>
-                        <div class="logo-frame">
-                          <%= cl_image_tag organisation.photo.key, height: 300, width:400, crop: :fit, class: "org-logo" %>
-                        </div>
-                      <% end %>
-                    </div>
-                    <div class="org-card-text">
-                      <div class="org-card-info" data-name="<%= organisation.name %>">
-
-                        <h3><%= organisation.name.upcase %></h3>
-                        <h4><%= organisation.subheading %></h4>
-                      </div>
-                      <div class="org-card-foot" data-expandorg-target="expandOrgBtn" data-action="click->expandorg#showOrganisation">
+  <div data-controller="expandorg">
+    <%# card start %>
+    <div class="org-card" data-expandorg-target="expandorgbtn" data-action="click->expandorg#showOrganisation">
+    <%# if I am in user %>
+      <% if controller_name == "users" %>
+        <% if current_user.organisations.include?(organisation) %>
+          <%= link_to unsave_organisation_user_path(current_user, organisation: organisation), method: :delete, remote: true , class: "unsave-org-btn" do %>
+            <div class="unsave-org-btn-icon dont-open-preview-btn"></div>
+          <% end %>
+        <% end %>
+      <% else %>
+       <%# if i am in organisation index %>
+        <% if current_user %>
+          <turbo-frame id="organisation-card">
+            <% if current_user.organisations.include?(organisation) %>
+              <%= link_to unsave_organisation_organisation_path(organisation, user: current_user), method: :delete, remote: true , class: "save-org-btn dont-open-preview-btn" do %>
+                <div class="save-org-btn-icon clicked dont-open-preview-btn"></div>
+              <% end %>
+            <% else %>
+              <%= link_to save_organisation_organisation_path(organisation, user: current_user), method: :post, remote: true, class: "save-org-btn dont-open-preview-btn"  do %>
+                <div class="save-org-btn-icon dont-open-preview-btn"></div>
+              <% end %>
+            <% end %>
+          </turbo-frame>
+        <% else %>
+          <%= link_to new_user_session_path, class: "save-org-btn"  do %>
+            <%= image_tag "icons/star_line_green_icon.svg", alt: "star icon empty" , class: "save-org-btn-icon"%>
+          <% end %>
+        <% end %>
+      <% end %>
+      <%# org logo section %>
+      <div class="org-card-logo">
+        <% unless organisation.photo.key.nil? %>
+          <div class="logo-frame">
+            <%= cl_image_tag organisation.photo.key, height: 300, width:400, crop: :fit, class: "org-logo" %>
+          </div>
+        <% end %>
+      </div>
+      <%# end of org logo section %>
+      <%# org card title and subtitle section %>
+      <div class="org-card-text">
+        <div class="org-card-info" data-name="<%= organisation.name %>">
+          <h3><%= organisation.name.upcase %></h3>
+          <h4><%= organisation.subheading %></h4>
+        </div>
+                      <%# <div class="org-card-foot" data-expandorg-target="expandOrgBtn" data-action="click->expandorg#showOrganisation">
                         <%= image_tag "icons/expand_org_icon.svg", alt: "expand organisation icon", class: "expand-org-btn" %>
-                      </div>
-                    </div>
-                  </div>
+                     <%#  </div> %>
+      </div>
+    </div>
                   <%# card-div-end %>
                   <%# org preview  %>
                     <div class="org-preview" data-expandorg-target="orgpreview" hidden>
                       <div class="org-preview-card">
                         <div class="preview-top">
-                          <div class="close-btn" data-action="click->expandorg#showIndex" data-expandorg-targets="closePreviewBtn">
+                          <div class="close-btn" data-action="click->expandorg#showIndex" data-expandorg-targets="closepreviewbtn">
                             <%= image_tag "icons/close_icon.svg", alt: "close icon"%>
                           </div>
                         </div>

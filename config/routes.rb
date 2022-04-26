@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
+  root to: "pages#home"
   devise_for :users, controllers: {
   omniauth_callbacks: "users/omniauth_callbacks" }
-  root to: "pages#home"
-  resources :users, only: [:show]
+  resources :users, only: [:show] do
+    member do
+      get :unsave_organisation
+    end
+  end
   resources :user_organisations, only: [:index, :destroy]
   resources :organisations, only: [:index, :create, :new] do
     member do

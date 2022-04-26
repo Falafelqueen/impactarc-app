@@ -17,6 +17,7 @@ class Organisation < ApplicationRecord
   scope :with_volunteering_opportunities, -> { where(volunteering: true) }
   scope :with_internship_opportunities, -> { where(internship: true) }
 
+  self.per_page = 12
 
   def self.filter_by_category(params)
     big_array = params.map do |cat|

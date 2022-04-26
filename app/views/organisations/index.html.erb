@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="filter-bar">
+  <div class="filter-bar ">
     <div class="filter-left">
       <%= image_tag "icons/filter_icon.svg" %>
       <% unless @filters.nil? %>
@@ -15,7 +15,10 @@
     </div>
   </div>
   <div class="content-container">
-    <div class="side-bar">
+  <div data-controller="sidebar" class="open-side-bar-container">
+    <div data-sidebar-target="openSidebarBtn" data-action="click->sidebar#openSidebar" class="open-side-bar-btn">Filters</div>
+    <%# start sidebar %>
+    <div class="side-bar" data-sidebar-target="sidebar">
       <% if params[:applied_filter].present? %>
         <%= link_to "Show all", organisations_path %>
       <% end %>
@@ -34,6 +37,7 @@
         <div class="filter-control" data-action="click->visibility#showTargets" data-visibility-target="showBtn"><%= image_tag "icons/plus_icon.svg" %> Expand selection </div>
         <div class="filter-control" data-action="click->visibility#hideTargets" data-visibility-target="hideBtn" hidden><%= image_tag "icons/minus_icon.svg" %> Minimize selection</div>
         <div class="expand-box" data-visibility-target="hideable" hidden>
+        <%# hidden filters %>
         <h5>Other categories</h5>
           <div class="form-group other-categories">
               <%= fields_for @category do |c|%>
@@ -62,6 +66,7 @@
             <%= label_tag :internship, "Internship opportunities" %>
           </div>
         </div>
+        <%# end of hidden filters %>
       </div>
       <div class="form-group english">
         <%= check_box_tag :english, "true" %>
@@ -74,18 +79,16 @@
         <% end %>
       <% end %>
     </div>
-
-
-
+    <%# sidebar end %>
+   </div>
+    <div class="main-content">
+      <% unless @organisations.nil? || @organisations == [] %>
         <div class="org-grid">
-            <% unless @organisations.nil? || @organisations == [] %>
             <%= render @organisations %>
-                <%= will_paginate @organisations %>
-              <% end %>
         </div>
+            <%= will_paginate @organisations %>
+      <% end %>
+    </div>
   </div>
-  <% if current_user %>
-    <%= link_to "User dashboard", user_path(current_user) %>
-  <% end %>
   <%= link_to "Create new organisation", new_organisation_path %>
 </div>
