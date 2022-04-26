@@ -31,10 +31,10 @@
     <div class="form-section">
       <h3>Categories</h3>
       <%= fields_for :categories do |c|%>
-      <%= c.collection_check_boxes :name, Category.all, :name, :name do |b|%>
-      <%= b.label  %>
-      <%= b.check_box %>
-      <% end %>
+        <%= c.collection_check_boxes :name, Category.all, :name, :name do |b|%>
+          <%= b.label  %>
+          <%= b.check_box %>
+        <% end %>
       <% end %>
     </div>
  <%# will add nested fields_for with checkboxes and add new tag thingy %>

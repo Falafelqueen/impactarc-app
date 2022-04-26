@@ -1,10 +1,37 @@
 .content-container{
   display: flex;
   justify-content: space-between;
+  padding-top: 20px;
+  margin: 0px 25px 15px;
+  .open-side-bar-btn{
+      display:none;
+    }
   .side-bar{
     display:block;
     form{
       width:260px;
+    }
+    .side-bar-content{
+      width:260px;
+    }
+  }
+  // hiding side-bar
+  @media(max-width: 670px){
+    .open-side-bar-btn{
+      display:block;
+    }
+    .side-bar{
+      display:none
+    }
+    .open-side-bar.side-bar{
+      display: block;
+    }
+  }
+}
+// small content-container
+  @media(max-width: 670px){
+    .content-container{
+      flex-direction: column;
     }
   }
   .org-grid{
@@ -14,113 +41,88 @@
     justify-content: space-evenly;
     position:relative;
     margin: 10px 50px;
-    .org-card{
-      min-width: 230px;
-      border: 1px solid black;
-      border-radius: 15px;
-      //needs to be made more flexible
-      height: 350px;
-      position: relative;
-      .org-card-logo{
-        border-bottom: 1px solid black;
-        height:180px;
-        .logo-frame{
-          border-radius: 50%;
-          border: 1px solid black;
-          width: 150px;
-          height: 150px;
-          margin: 20px auto;
-          .org-logo{
-            display: block;
-            margin: 50px auto;
-            width: 50%;
-          }
-        }
-      }
-        .org-card-info {
-            display: flex;
-            flex-direction: column;
-            text-align: left;
-            margin:10px 15px;
-          }
-        .org-card-foot{
-          position:absolute;
-          right: 15px;
-          bottom: 10px;
-          }
+  }
 
-    }
-    .org-preview{
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      left:0;
-      top:0;
-      background: white;
-      z-index: 10;
-      .org-preview-card{
-        border: 2px solid var(--purple);
-        border-radius:15px;
-        padding:30px 50px;
-        .preview-top{
-          display:flex;
-          justify-content: flex-end;
-        }
-        .preview-content{
-          display:grid;
-          grid-template-columns: 1fr 2fr;
-          margin:30px 0px;
-          gap:20px;
-          .preview-head{
-            h3{
-              font-size: var(--title-text)
-            }
-            h4{
-              margin: 8px 0px;
-            }
-           .logo{
+
+  .org-preview{
+    position: absolute;
+    width: 100%;
+    height: max-content;
+    left:0;
+    top:0;
+    background: white;
+    z-index: 10;
+    .org-preview-card{
+      height: 625px;
+      border: 2px solid var(--purple);
+      border-radius:15px;
+      padding:30px 50px;
+      .preview-top{
+        display:flex;
+        justify-content: flex-end;
+      }
+      .preview-content{
+        display:grid;
+        grid-template-columns: 1fr 2fr;
+        margin:30px 0px;
+        gap:20px;
+        .preview-head{
+          h3{
+            font-size: var(--title-text)
+          }
+          h4{
+            margin: 8px 0px;
+          }
+          .logo{
             height:200px;
             width: 200px;
             .logo-show {
 
               object-fit: fill;
             }
-           }
-          }
-          .characteristics-item{
-            display:flex;
-            align-items: end;
-            margin-bottom: 20px;
-            h5{
-              margin-left: 16px;
-            }
           }
         }
-        .preview-foot{
-          display: flex;
-          align-items: center;
-          .contact{
+        .characteristics-item{
+          display:flex;
+          align-items: end;
+          margin-bottom: 20px;
+          h5{
+            margin-left: 16px;
+          }
+        }
+      }
+      .preview-foot{
+        display: flex;
+        align-items: center;
+        .contact{
 
-           h3, h5{
-             margin-top: 16px;
-             margin-bottom:5px;
-           }
-           p{
+          h3, h5{
+            margin-top: 16px;
+            margin-bottom:5px;
+          }
+          p{
             margin-top: 0px;
           }
-          }
-          .some-links{
-            margin: 10px auto;
-            img{
-              padding: 15px;
-            }
+        }
+        .some-links{
+          margin: 10px auto;
+          img{
+            padding: 15px;
           }
         }
       }
     }
   }
-}
 
+
+
+
+
+// pagination
+.pagination{
+  width:max-content;
+  margin: 20px auto;
+}
 .current{
   font-weight: bold;
   color: var(--purple)
@@ -128,4 +130,16 @@
 
 .previous_page.disabled, .next_page.disabled{
   opacity:(0.7)
+}
+
+
+@media( max-width: 900px ){
+   .org-grid{
+     grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 630px){
+  .org-grid{
+    grid-template-columns: 1fr;
+  }
 }

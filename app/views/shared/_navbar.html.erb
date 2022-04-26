@@ -13,8 +13,18 @@
       <% end %>
       <%= image_tag "icons/search_icon.svg", data: {action:"click->searchbar#animateSearchBar"}, class:"search-icon" %>
     </div>
-    <%= link_to signup_path do %>
+    <% if user_signed_in? %>
+    <div data-controller="dropdown">
+      <%= image_tag "icons/user_full_purple_icon.svg",alt: "user icon", class: "user-icon", data: {dropdown_target: "showDropdownBtn", action: "click->dropdown#toggleDropdown"} %>
+      <div class="dropdown-nav" data-dropdown-target="dropdownList">
+        <%= link_to "My dashboard", user_path(current_user)%>
+        <%= button_to 'Log out', destroy_user_session_path, method: :delete , class: "classic-link"%>
+      </div>
+    </div>
+    <% else %>
+    <%= link_to new_user_session_path do %>
     <button class="log-in normal-btn">Log in</button>
+    <% end %>
     <% end %>
   </div>
 </div>

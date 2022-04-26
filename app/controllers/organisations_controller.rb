@@ -118,6 +118,25 @@ class OrganisationsController < ApplicationController
       end
   end
 
+    def save_organisation
+      if params[:user]
+        user = User.find(params[:user])
+        UserOrganisation.create(user: user, organisation: Organisation.find(params[:id]))
+        redirect_to organisations_path
+      else
+        redirect_to new_user_session_path
+      end
+    end
+
+    def unsave_organisation
+      if params[:user]
+        user = User.find(params[:user])
+        organisation = Organisation.find(params[:id])
+        user.organisations.delete(organisation)
+        redirect_to organisations_path
+      end
+    end
+
   private
 
   def filter_bar(params)

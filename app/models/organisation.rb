@@ -7,6 +7,8 @@ class Organisation < ApplicationRecord
   has_many :search_words, through: :tags
   has_many :organisation_categories
   has_many :categories, through: :organisation_categories
+  has_many :user_organisations
+  has_many :users, through: :user_organisations
   accepts_nested_attributes_for :categories
 
   include Searchable
@@ -15,6 +17,7 @@ class Organisation < ApplicationRecord
   scope :with_volunteering_opportunities, -> { where(volunteering: true) }
   scope :with_internship_opportunities, -> { where(internship: true) }
 
+  self.per_page = 12
 
   def self.filter_by_category(params)
     big_array = params.map do |cat|

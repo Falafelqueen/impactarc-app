@@ -1,11 +1,13 @@
 <div class="container">
-  <div class="filter-bar">
+  <div class="filter-bar ">
     <div class="filter-left">
       <%= image_tag "icons/filter_icon.svg" %>
+      <% unless @filters.nil? %>
       <% @filters.each do |filter| %>
       <div class="filter-selected">
        <%= filter.upcase %>
       </div>
+      <% end %>
       <% end %>
     </div>
     <div class="filter-right">
@@ -13,7 +15,10 @@
     </div>
   </div>
   <div class="content-container">
-    <div class="side-bar">
+  <div data-controller="sidebar" class="open-side-bar-container">
+    <div data-sidebar-target="openSidebarBtn" data-action="click->sidebar#openSidebar" class="open-side-bar-btn">Filters</div>
+    <%# start sidebar %>
+    <div class="side-bar" data-sidebar-target="sidebar">
       <% if params[:applied_filter].present? %>
         <%= link_to "Show all", organisations_path %>
       <% end %>
@@ -32,6 +37,7 @@
         <div class="filter-control" data-action="click->visibility#showTargets" data-visibility-target="showBtn"><%= image_tag "icons/plus_icon.svg" %> Expand selection </div>
         <div class="filter-control" data-action="click->visibility#hideTargets" data-visibility-target="hideBtn" hidden><%= image_tag "icons/minus_icon.svg" %> Minimize selection</div>
         <div class="expand-box" data-visibility-target="hideable" hidden>
+        <%# hidden filters %>
         <h5>Other categories</h5>
           <div class="form-group other-categories">
               <%= fields_for @category do |c|%>
@@ -60,6 +66,7 @@
             <%= label_tag :internship, "Internship opportunities" %>
           </div>
         </div>
+        <%# end of hidden filters %>
       </div>
       <div class="form-group english">
         <%= check_box_tag :english, "true" %>
@@ -72,119 +79,16 @@
         <% end %>
       <% end %>
     </div>
-
-
-
+    <%# sidebar end %>
+   </div>
+    <div class="main-content">
+      <% unless @organisations.nil? || @organisations == [] %>
         <div class="org-grid">
-            <% unless @organisations.nil? || @organisations == [] %>
-              <% @organisations.limit(12).each do |organisation| %>
-                <% unless organisation.nil? %>
-                  <div data-controller="expandorg">
-                  <div class="org-card">
-                    <div class="org-card-logo">
-                      <% unless organisation.photo.key.nil? %>
-                      <div class="logo-frame">
-                        <%= cl_image_tag organisation.photo.key, height: 300, width:400, crop: :fit, class: "org-logo" %>
-                      </div>
-                      <% end %>
-                    </div>
-                    <div class="org-card-text">
-                      <div class="org-card-info" data-name="<%= organisation.name %>">
-                        <h3><%= organisation.name.upcase %></h3>
-                        <h4><%= organisation.subheading %></h4>
-                      </div>
-                      <div class="org-card-foot" data-expandorg-target="expandOrgBtn" data-action="click->expandorg#showOrganisation">
-                        <%= image_tag "icons/expand_org_icon.svg", alt: "expand organisation icon", class: "expand-org-btn" %>
-                      </div>
-                    </div>
-                  </div>
-                    <div class="org-preview" data-expandorg-target="orgpreview" hidden>
-                      <div class="org-preview-card">
-                        <div class="preview-top">
-                          <div class="close-btn" data-action="click->expandorg#showIndex" data-expandorg-targets="closePreviewBtn">Close</div>
-                        </div>
-                        <div class="preview-content">
-                          <div class="logo">
-                            <% unless organisation.photo.key.nil? %>
-                            <%= cl_image_tag organisation.photo.key, class: "logo-show"%>
-                            <% end %>
-                          </div>
-                          <div class="preview-head">
-                            <h3><%= organisation.name.upcase %></h3>
-                            <h4><%= organisation.subheading %></h4>
-                          </div>
-                          <div class="characteristics">
-                            <% unless organisation.size.nil? %>
-                              <div class="characteristics-item">
-                                <%= image_tag "icons/orgsize_icon.svg"%>
-                                <h5><%=organisation.size.capitalize %> organization</h5>
-                              </div>
-                            <% end %>
-                            <% unless organisation.volunteering.nil? %>
-                               <div class="characteristics-item">
-                                <%= image_tag "icons/volunteering_icon.svg"%>
-                                <h5>Volunteering opportunities</h5>
-                              </div>
-                            <% end %>
-                            <% unless organisation.internship.nil? %>
-                              <div class="characteristics-item">
-                                <%= image_tag "icons/internship_icon.svg"%>
-                                <h5>Internship programme</h5>
-                              </div>
-                            <% end %>
-                            <% unless organisation.unsolicited.nil? %>
-                              <div class="characteristics-item">
-                                <%= image_tag "icons/unsolicited_icon.svg"%>
-                                <h5>Open to unsolicited applications</h5>
-                              </div>
-                            <% end %>
-                            <% unless organisation.english.nil? %>
-                              <div class="characteristics-item">
-                                <%= image_tag "icons/english_icon.svg"%>
-                                <h5>English speaking opportunities</h5>
-                              </div>
-                            <% end %>
-                          </div>
-                          <div class="preview-body">
-                            <p><%= organisation.description %></p>
-                          </div>
-                          <div class="map">map</div>
-                          <div class="preview-foot">
-                            <div class="contact">
-                              <h3>Contact</h3>
-                              <a href="<%= organisation.website%>" target="_blank"><p><%= format_url(organisation.website)%></p></a>
-                              <p><%= organisation.email%></p>
-                              <h5>Address</h5>
-                              <p><%= organisation.street %></p>
-                              <p><%= organisation.city %></p>
-                              <p><%= organisation.zip %></p>
-                              <p><%= organisation.country %></p>
-                            </div>
-                            <div class="some-links">
-                              <%= link_to organisation.facebook, target: :_blank  do %>
-                                <%= image_tag "icons/fb_icon.svg" %>
-                              <% end %>
-                              <%= link_to organisation.linkedin, target: :_blank do %>
-                                <%= image_tag "icons/linkedin_icon.svg" %>
-                              <% end %>
-                            </div>
-                          </div>
-
-
-
-                        </div>
-
-                      </div>
-                    </div>
-                  <% end %>
-                </div>
-                <% end %>
-                <%= will_paginate @organisations %>
-              <% end %>
-          </div>
-
-
+            <%= render @organisations %>
+        </div>
+            <%= will_paginate @organisations %>
+      <% end %>
+    </div>
   </div>
-
   <%= link_to "Create new organisation", new_organisation_path %>
 </div>

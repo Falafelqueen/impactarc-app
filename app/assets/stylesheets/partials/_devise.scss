@@ -1,0 +1,25 @@
+.login-container{
+  width: 370px;
+  padding:  50px;
+  border: 1px solid var(--purple);
+  border-radius: 15px;
+  margin: 20px auto;
+  h2{
+  width: max-content;
+  margin: 5px auto;
+}
+}
+.dividor{
+  display:flex;
+  align-items: center;
+  .line{
+    content: "";
+    background-color: var(--purple);
+    height: 1px;
+    flex: 1;
+  }
+  .purple-text{
+    margin: 0px 10px;
+    color: var(--purple)
+  }
+}

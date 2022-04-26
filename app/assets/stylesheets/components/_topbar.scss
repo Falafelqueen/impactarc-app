@@ -20,3 +20,8 @@
     margin-right: 10px;
   }
 }
+@media( max-width:670px ){
+ .filter-bar{
+  display: none;
+ }
+}

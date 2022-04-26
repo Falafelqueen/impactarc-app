@@ -1,0 +1,108 @@
+//transparent background on autofill in chrome
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  background-color: white;
+  -webkit-text-fill-color: var(--dark-green);
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.standard-form{
+
+  form{
+    .field{
+     position:relative;
+     display: flex;
+     flex-direction: column;
+     margin-top:10px;
+      .right-aligned-link{
+        font-size: var(--small-text);
+        position: absolute;
+        right: 5px;
+        bottom: -20px;
+      }
+
+      input {
+      border:1px solid var(--purple);
+      border-radius:12px;
+      padding: 5px;
+      color: var(--dark-green);
+      }
+      input:focus,
+      input:hover {
+        outline: 2px solid var(--purple);
+      }
+      input:focus + label{
+        color: var(--purple);
+        font-weight: var(--bold);
+      }
+      input[type="email" i], input[type="password" i]{
+        padding: 10px;
+      }
+      &.side-field{
+        flex-direction: row;
+        align-items: center;
+        position:absolute;
+        right: 5px;
+      }
+    }
+    label{
+      order: -1; // to bring it above the input field in flexbox
+      font-size: var(--small-text);
+      margin-left: 5px;
+      margin-bottom: 2px;
+      color: var(--purple);
+    }
+    input.invalid{
+        outline: 2px solid var(--red);
+      }
+      .hidden-message{
+        display:none;
+        color: var(--red);
+        font-size: 12px;
+      }
+      input.invalid ~ .hidden-message{
+        display: inline-block;
+      }
+  }
+  .actions{
+    padding-top:15px;
+  }
+  .normal-btn{
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}
+.social-login-holder{
+  margin: 20px auto;
+  .social-login-btn{
+    border: 1px solid var(--purple);
+    display: block;
+    padding: 1.3px;
+    border-radius: 12px;
+    margin-top: 15px;
+    color: var(--purple);
+    .content-login-btn{
+      display: flex;
+      width: 200px;
+      justify-content: space-between;
+      margin: 5px auto;
+      p {
+        margin-top: 2px;
+      }
+      img{
+        height: 25px;
+      }
+    }
+    &:hover{
+      outline: 2px solid var(--purple)
+    }
+  }
+}
