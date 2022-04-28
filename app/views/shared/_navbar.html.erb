@@ -1,9 +1,22 @@
 <div class="navbar-container">
-<div class="nav-left">
-  <%= link_to "ImpactArc", root_path, class:"nav-link-text nav-logo" %>
-  <%= link_to "Project", root_path, class:"nav-link-text" %>
-  <%= link_to "Organisations", organisations_path, class: "nav-link-text" %>
-</div>
+  <div class="mobile-view-nav">
+    <%= link_to "ImpactArc", root_path, class:"nav-link-text nav-logo" %>
+    <div data-controller="dropdown">
+      <%= image_tag "icons/user_full_purple_icon.svg",alt: "user icon", class: "user-icon", data: {dropdown_target: "showDropdownBtn", action: "click->dropdown#toggleDropdown"} %>
+      <div class="dropdown-nav mobile-view-dropdown" data-dropdown-target="dropdownList">
+        <%= link_to "Organizations", organisations_path %>
+        <% if current_user %>
+        <%= link_to "My dashboard", user_path(current_user)%>
+        <%= button_to 'Log out', destroy_user_session_path, method: :delete , class: "classic-link"%>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="nav-left">
+    <%= link_to "ImpactArc", root_path, class:"nav-link-text nav-logo" %>
+    <%= link_to "Project", root_path, class:"nav-link-text" %>
+    <%= link_to "Organisations", organisations_path, class: "nav-link-text" %>
+  </div>
   <div class="nav-right">
     <div data-controller="searchbar" class="search">
       <%= form_with url: organisations_path, method: :get do %>
