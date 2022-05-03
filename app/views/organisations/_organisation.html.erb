@@ -25,7 +25,7 @@
           </turbo-frame>
         <% else %>
           <%= link_to new_user_session_path, class: "save-org-btn"  do %>
-            <%= image_tag "icons/star_line_green_icon.svg", alt: "star icon empty" , class: "save-org-btn-icon"%>
+            <%= image_tag "icons/star_line_green_icon.svg", alt: "star icon empty" , class: "save-org-btn-icon dont-open-preview-btn"%>
           <% end %>
         <% end %>
       <% end %>
@@ -54,8 +54,8 @@
                     <div class="org-preview" data-expandorg-target="orgpreview" hidden>
                       <div class="org-preview-card">
                         <div class="preview-top">
-                          <div class="close-btn" data-action="click->expandorg#showIndex" data-expandorg-targets="closepreviewbtn">
-                            <%= image_tag "icons/close_icon.svg", alt: "close icon"%>
+                          <div class="close-btn" data-action="click->expandorg#showOrganisation" data-expandorg-targets="closepreviewbtn">
+                            <%= image_tag "icons/close_icon.svg", alt: "close icon", class: "close-btn-icon"%>
                           </div>
                         </div>
                         <div class="preview-content">
@@ -123,6 +123,7 @@
                                 <%= image_tag "icons/linkedin_icon.svg" %>
                               <% end %>
                             </div>
+                            <%= link_to "More", organisation_path(organisation) %>
                           </div>
                         </div>
                       </div>

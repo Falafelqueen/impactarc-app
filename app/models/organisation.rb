@@ -10,6 +10,8 @@ class Organisation < ApplicationRecord
   has_many :user_organisations
   has_many :users, through: :user_organisations
   accepts_nested_attributes_for :categories
+  geocoded_by :full_address
+  after_validation :geocode
 
   include Searchable
 
@@ -17,8 +19,10 @@ class Organisation < ApplicationRecord
   scope :with_volunteering_opportunities, -> { where(volunteering: true) }
   scope :with_internship_opportunities, -> { where(internship: true) }
 
+  #pagination
   self.per_page = 12
 
+  #filters
   def self.filter_by_category(params)
     big_array = params.map do |cat|
       Organisation.joins(categories: [:organisation_categories]).where(organisation_categories:{category_id: cat}).uniq
@@ -35,9 +39,12 @@ class Organisation < ApplicationRecord
       self.where(id: id_array)
     end
   end
-
     def self.filter_by_size(size)
       self.where(size: size)
     end
+  # geocoding
 
+  def full_address
+    [street,city,country].compact.join(",")
+  end
 end

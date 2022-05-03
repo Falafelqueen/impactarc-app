@@ -13,12 +13,12 @@
     }
     // the top star
     //turboframe
-    #organisation-card{
-      width: max-content;
-      display: block;
-      float: right;
-      margin: 10px;
+
       .save-org-btn{
+        width: max-content;
+        display: block;
+        float: right;
+        margin: 10px;
         .save-org-btn-icon{
           width:26px;
           height: 25px;
@@ -37,7 +37,7 @@
           background-image: url("icons/star_full_icon.svg");
         }
       }
-    }
+
     .unsave-org-btn{
       display: block;
       margin: 10px;

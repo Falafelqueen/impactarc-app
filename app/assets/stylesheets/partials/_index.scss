@@ -3,6 +3,11 @@
   justify-content: space-between;
   padding-top: 20px;
   margin: 0px 25px 15px;
+  @media(max-width: 670px){
+    margin: 0px 10px 15px;
+    flex-direction: column;
+  }
+
   .open-side-bar-btn{
       display:none;
     }
@@ -29,34 +34,39 @@
   }
 }
 // small content-container
-  @media(max-width: 670px){
-    .content-container{
-      flex-direction: column;
-    }
-  }
   .org-grid{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 50px;
     justify-content: space-evenly;
+    margin: 10px 0px 10px 50px;
     position:relative;
-    margin: 10px 50px;
-  }
+    flex: 1;
+    @media( max-width: 1040px ){
+     grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: 650px){
+    grid-template-columns: 1fr;
+    margin: 10px 0px;
+    }
 
-
-  .org-preview{
+    .org-preview{
     position: absolute;
-    width: 100%;
     height: max-content;
     left:0;
     top:0;
     background: white;
     z-index: 10;
+    width: 100%;
     .org-preview-card{
       height: 625px;
       border: 2px solid var(--purple);
       border-radius:15px;
       padding:30px 50px;
+      @media(max-width: 670px){
+        min-width: 250px;
+        height: max-content;
+      }
       .preview-top{
         display:flex;
         justify-content: flex-end;
@@ -66,6 +76,9 @@
         grid-template-columns: 1fr 2fr;
         margin:30px 0px;
         gap:20px;
+        @media(max-width: 670px){
+          grid-template-columns: 1fr;
+        }
         .preview-head{
           h3{
             font-size: var(--title-text)
@@ -77,7 +90,6 @@
             height:200px;
             width: 200px;
             .logo-show {
-
               object-fit: fill;
             }
           }
@@ -95,7 +107,6 @@
         display: flex;
         align-items: center;
         .contact{
-
           h3, h5{
             margin-top: 16px;
             margin-bottom:5px;
@@ -113,10 +124,7 @@
       }
     }
   }
-
-
-
-
+  }
 
 // pagination
 .pagination{
@@ -127,19 +135,6 @@
   font-weight: bold;
   color: var(--purple)
 }
-
 .previous_page.disabled, .next_page.disabled{
   opacity:(0.7)
-}
-
-
-@media( max-width: 900px ){
-   .org-grid{
-     grid-template-columns: 1fr 1fr;
-  }
-}
-@media (max-width: 630px){
-  .org-grid{
-    grid-template-columns: 1fr;
-  }
 }

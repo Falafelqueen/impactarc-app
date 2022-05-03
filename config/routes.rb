@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     end
   end
   resources :user_organisations, only: [:index, :destroy]
-  resources :organisations, only: [:index, :create, :new] do
+  resources :organisations, only: [:index, :create, :new, :show] do
     member do
       get :save_organisation
       get :unsave_organisation

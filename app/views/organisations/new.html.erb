@@ -37,6 +37,17 @@
         <% end %>
       <% end %>
     </div>
+    <div class="form-section">
+      <h3>Address</h3>
+      <%= f.label :street, "Street" %>
+      <%= f.text_field :street %>
+      <%= f.label :zip, "ZIP" %>
+      <%= f.text_field :zip   %>
+      <%= f.label :city, "City" %>
+      <%= f.text_field :city %>
+      <%= f.label :country, "Country" %>
+      <%= f.text_field :country  %>
+    </div>
  <%# will add nested fields_for with checkboxes and add new tag thingy %>
   <%= f.submit "Create organisation" %>
 <% end %>

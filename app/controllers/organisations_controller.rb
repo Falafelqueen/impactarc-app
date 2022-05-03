@@ -92,6 +92,9 @@ class OrganisationsController < ApplicationController
     @other_categories = Category.other
   end
 
+  def show
+    @organisation = Organisation.find(params[:id])
+  end
   def new
     @organisation = Organisation.new
   end
@@ -179,6 +182,10 @@ class OrganisationsController < ApplicationController
       :size,
       :photo,
       :category,
+      :street,
+      :city,
+      :country,
+      :zip,
       search_words: [],
       categories: []
     )
