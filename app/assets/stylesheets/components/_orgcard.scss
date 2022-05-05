@@ -1,5 +1,6 @@
 .org-card{
     min-width: 230px;
+    max-width: 275px;
     border: 1px solid var(--dark-green);
     border-radius: 15px;
     //needs to be made more flexible
@@ -59,14 +60,16 @@
       height:180px;
       .logo-frame{
         border-radius: 50%;
-        border: 1px solid var(--dark-green);
+        outline: 1px solid var(--dark-green);
         width: 150px;
         height: 150px;
-        margin: 20px auto;
+        margin: 25px auto;
+        text-align: center;
         .org-logo{
-          display: block;
-          margin: 50px auto;
-          width: 50%;
+          border-radius: 50%;
+          max-width: 100%;
+          max-height: 100%;
+          vertical-align: middle;
         }
       }
     }

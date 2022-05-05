@@ -33,7 +33,7 @@
       <div class="org-card-logo">
         <% unless organisation.photo.key.nil? %>
           <div class="logo-frame">
-            <%= cl_image_tag organisation.photo.key, height: 300, width:400, crop: :fit, class: "org-logo" %>
+            <%= cl_image_tag organisation.photo.key, height: 150, width:150, crop: :fit, class: "org-logo" %>
           </div>
         <% end %>
       </div>
