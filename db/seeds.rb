@@ -111,6 +111,11 @@ csv.each do |row|
   if row['Org. description'] != nil && row['Active'].downcase == 'yes'
     org = Organisation.new
     org.name = row['OrgName']
+    logo_name = row['OrgName'].downcase.split.join
+    logo_src = "app/assets/images/logos/#{logo_name}.png"
+    if File.exist?(logo_src)
+      org.photo.attach(io: File.open(logo_src), filename: "#{logo_name}.png", content_type: "image/png")
+    end
     org.subheading = row['Subheading']
     org.description = row['Org. description']
     org.email = row['Email General'].downcase unless row['Email General'].nil?
