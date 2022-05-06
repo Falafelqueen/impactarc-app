@@ -58,6 +58,7 @@
     .org-card-logo{
       border-bottom: 1px solid var(--dark-green);
       height:180px;
+      width: 268px;
       .logo-frame{
         border-radius: 50%;
         outline: 1px solid var(--dark-green);
@@ -96,7 +97,7 @@
 
 // hover effects
 .org-card:hover{
-  border: 2px solid var(--purple);
+  outline: 2px solid var(--purple);
   cursor:pointer;
   .org-card-logo{
     border-bottom: 1px solid var(--purple);
